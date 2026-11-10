@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sovereign Craft Suite — Enterprise Back-Office in Pure Rust</title>
+  <meta name="description" content="Twelve sovereign, local-first desktop applications replacing commercial SaaS sprawl with zero cloud dependencies, instant performance, and automated Austrian & European statutory compliance." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              400: '#38bdf8',
+              500: '#0284c7',
+              600: '#0369a1',
+              900: '#0c4a6e',
+            },
+            surface: {
+              dark: '#090d16',
+              card: '#0f172a',
+              cardborder: '#1e293b',
+              highlight: '#1e1b4b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090d16;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glow-cyan {
+      box-shadow: 0 0 50px -10px rgba(56, 189, 248, 0.25);
+    }
+    .glow-purple {
+      box-shadow: 0 0 50px -10px rgba(168, 85, 247, 0.25);
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #a855f7 50%, #f43f5e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-500 selection:text-white">
+
+  <!-- NAVIGATION BAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-indigo-600 flex items-center justify-center shadow-lg shadow-brand-500/20">
+          <span class="text-white font-extrabold text-xl">⚡</span>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight">Sovereign <span class="text-brand-400">Craft Suite</span></span>
+          <span class="hidden sm:inline-block ml-2 text-xs text-slate-400 font-mono">v0.1.0 • Pure Rust</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
+        <a href="#wasm-demo" class="hover:text-brand-400 transition-colors">Live WASM Demo</a>
+        <a href="#roi-calculator" class="hover:text-brand-400 transition-colors">ROI Calculator</a>
+        <a href="#suite-apps" class="hover:text-brand-400 transition-colors">12 Applications</a>
+        <a href="#domino-flow" class="hover:text-brand-400 transition-colors">Event Cascade</a>
+        <a href="#video-pitch" class="hover:text-brand-400 transition-colors">Video Pitch</a>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <a href="#wasm-demo" class="px-5 py-2.5 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm transition-all shadow-lg shadow-brand-500/25">
+          Launch WASM Sandbox
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-36 pb-24 overflow-hidden">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-brand-500/15 blur-[140px] pointer-events-none rounded-full"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-400/10 border border-brand-400/30 text-brand-400 font-mono text-xs font-semibold uppercase tracking-wider mb-8">
+        <span class="w-2 h-2 rounded-full bg-brand-400 animate-pulse"></span>
+        Zero Cloud • Local-First • Pure Rust
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
+        Eliminate SaaS Sprawl.<br/>
+        <span class="gradient-text">Twelve Sovereign Applications</span> in Pure Rust.
+      </h1>
+
+      <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
+        Replace Jira, Zendesk, Expensify, Stripe, and Greenhouse with an integrated suite of native desktop &amp; in-browser WebAssembly workstations. Zero per-seat subscriptions, instant sub-millisecond execution, and 100% Austrian &amp; EU legal compliance.
+      </p>
+
+      <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <a href="#wasm-demo" class="px-8 py-4 rounded-xl bg-gradient-to-r from-brand-400 to-indigo-600 text-white font-extrabold text-base transition-all shadow-xl shadow-brand-500/25 hover:scale-[1.02]">
+          ⚡ Open In-Browser WebAssembly Studio
+        </a>
+        <a href="#roi-calculator" class="px-8 py-4 rounded-xl glass-panel text-slate-200 font-bold text-base hover:bg-white/5 transition-all border border-white/10">
+          💶 Calculate Your Annual Savings
+        </a>
+        <a href="./downloads/backoffice-suite-brochure.pdf" download class="px-6 py-4 rounded-xl glass-panel text-brand-400 font-bold text-base hover:bg-white/5 transition-all border border-brand-400/30 flex items-center gap-2">
+          📄 Download Executive PDF (A4)
+        </a>
+      </div>
+
+      <!-- Key Metrics Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto pt-10 border-t border-white/10 text-left">
+        <div class="glass-panel p-6 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Annual Savings (50 Seats)</div>
+          <div class="text-3xl font-extrabold text-emerald-400">€314,000</div>
+          <div class="text-xs text-slate-400 mt-1">Replaces 12 commercial subscriptions</div>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Execution Speed</div>
+          <div class="text-3xl font-extrabold text-brand-400">&lt; 1 ms</div>
+          <div class="text-xs text-slate-400 mt-1">Zero network spinners or API lag</div>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Statutory Engine</div>
+          <div class="text-3xl font-extrabold text-indigo-400">100% Legal</div>
+          <div class="text-xs text-slate-400 mt-1">ebInterface 6.1 • §26 EStG • AZG</div>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Memory &amp; Safety</div>
+          <div class="text-3xl font-extrabold text-rose-400">0 Panics</div>
+          <div class="text-xs text-slate-400 mt-1">Strict clippy::unwrap_used denied</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE IN-BROWSER WASM SANDBOX SECTION -->
+  <section id="wasm-demo" class="py-20 relative bg-surface-dark border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
+        <div>
+          <div class="badge-pill bg-brand-400/20 text-brand-400 border border-brand-400/30 mb-3">
+            Pure Rust In-Browser WebAssembly
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Live WebAssembly Sandbox
+          </h2>
+          <p class="text-slate-400 mt-2 max-w-2xl">
+            Test the sovereign suite right now directly inside your browser. No installation or cloud account required. Renders natively on HTML5 Canvas via WebGL2/WebGPU.
+          </p>
+        </div>
+        <div class="mt-4 md:mt-0 flex gap-3">
+          <button onclick="document.getElementById('wasm-frame').src = document.getElementById('wasm-frame').src" class="px-4 py-2 rounded-lg glass-panel hover:bg-white/10 text-xs font-bold font-mono text-slate-300">
+            ⟳ Reset Sandbox
+          </button>
+          <a href="./wasm/index.html" target="_blank" class="px-4 py-2 rounded-lg bg-brand-500 hover:bg-brand-400 text-xs font-bold text-white flex items-center gap-1.5 shadow-lg shadow-brand-500/20">
+            ⛶ Open Fullscreen Window
+          </a>
+        </div>
+      </div>
+
+      <!-- WASM Canvas Frame Container -->
+      <div class="glass-panel rounded-2xl p-2 glow-cyan border border-brand-400/30 overflow-hidden shadow-2xl">
+        <div class="bg-slate-900 px-4 py-3 rounded-t-xl flex items-center justify-between border-b border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+            <span class="text-xs font-mono text-slate-400 ml-3">craft-showcase-wasm.wasm [target: wasm32-unknown-unknown]</span>
+          </div>
+          <div class="text-xs font-mono text-emerald-400 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+            60 FPS Ready
+          </div>
+        </div>
+
+        <div class="w-full h-[620px] bg-slate-950 rounded-b-xl overflow-hidden relative">
+          <iframe id="wasm-frame" src="./wasm/index.html" class="w-full h-full border-0"></iframe>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap items-center justify-between text-xs text-slate-400 font-mono">
+        <div>💡 Switch between tabs inside the canvas: 🧭 HelmCraft • 🧾 BillCraft • 💳 SpendCraft • 🎯 HireCraft • 📋 TaskCraft</div>
+        <div>Rendered via eframe 0.37 • Pure Rust WASM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTERACTIVE ROI CALCULATOR -->
+  <section id="roi-calculator" class="py-24 relative border-t border-white/10 bg-gradient-to-b from-surface-dark to-slate-950">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="badge-pill bg-emerald-400/20 text-emerald-400 border border-emerald-400/30 mb-3">
+          Transparent Financial Calculus
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          Stop Paying the <span class="text-rose-400">SaaS Tax</span>.
+        </h2>
+        <p class="text-slate-400 mt-4 text-base">
+          Drag the seat slider below to calculate exactly how much recurring cloud capital your enterprise retains each year by switching to the Sovereign Back-Office Suite.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+        <!-- Control Card -->
+        <div class="glass-panel p-8 rounded-3xl lg:col-span-1 border border-white/10">
+          <div class="text-sm font-bold uppercase tracking-wider text-slate-400 mb-2">Company Size</div>
+          <div class="flex items-baseline justify-between mb-4">
+            <span class="text-4xl font-extrabold text-white" id="seats-display">50 Seats</span>
+            <span class="text-xs font-mono text-brand-400">Active Workstations</span>
+          </div>
+
+          <input id="seats-slider" type="range" min="5" max="250" value="50" step="5" class="w-full h-3 bg-slate-800 rounded-lg appearance-none cursor-pointer accent-brand-400 mb-8" oninput="updateROI(this.value)">
+
+          <div class="p-6 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-center mb-6">
+            <div class="text-xs font-mono uppercase tracking-wider text-emerald-300 mb-1">Total Annual Savings</div>
+            <div class="text-4xl sm:text-5xl font-extrabold text-emerald-400" id="total-savings">€314,000</div>
+            <div class="text-xs text-slate-400 mt-2" id="per-seat-savings">€6,280 saved per seat / year</div>
+          </div>
+
+          <div class="space-y-3 text-xs text-slate-400">
+            <div class="flex justify-between">
+              <span>SaaS Monthly Recurring:</span>
+              <span class="font-mono text-rose-400" id="monthly-saas-spend">€26,166 / mo</span>
+            </div>
+            <div class="flex justify-between">
+              <span>Craft Suite Monthly Cost:</span>
+              <span class="font-mono text-emerald-400">€0 / mo</span>
+            </div>
+            <div class="flex justify-between border-t border-white/10 pt-2 font-bold text-slate-200">
+              <span>3-Year Capital Retained:</span>
+              <span class="font-mono text-emerald-400" id="three-year-savings">€942,000</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Breakdown Table -->
+        <div class="glass-panel rounded-3xl p-6 lg:col-span-2 overflow-x-auto border border-white/10">
+          <div class="flex items-center justify-between mb-4">
+            <h3 class="text-lg font-bold">Itemized Subscription Replacements</h3>
+            <span class="text-xs font-mono text-slate-400">50 Seats Benchmark</span>
+          </div>
+
+          <table class="w-full text-left text-xs sm:text-sm">
+            <thead>
+              <tr class="border-b border-white/10 text-slate-400 font-mono text-xs uppercase">
+                <th class="py-3 px-3">Domain</th>
+                <th class="py-3 px-3">Legacy Cloud SaaS</th>
+                <th class="py-3 px-3">Price / Seat / Yr</th>
+                <th class="py-3 px-3">Sovereign App</th>
+                <th class="py-3 px-3 text-right">Annual Savings</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-white/5 font-mono" id="roi-table-body">
+              <!-- Dynamically populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE 12 APPLICATIONS GRID -->
+  <section id="suite-apps" class="py-24 relative bg-surface-dark border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="badge-pill bg-indigo-400/20 text-indigo-400 border border-indigo-400/30 mb-3">
+          Complete Enterprise Ecosystem
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          The 12 Sovereign Applications
+        </h2>
+        <p class="text-slate-400 mt-4 text-base">
+          Every tool is a full 4-crate Rust application (`*-store`, `*-core`, `*-mcp`, `*-app`) with native desktop GUI and stdio MCP server.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- BillCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">🧾</span>
+            <span class="text-xs font-bold font-mono text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded">ebInterface 6.1</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">BillCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Stripe Billing &amp; Chargebee</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Austrian federal e-invoicing engine (ebInterface 6.1 XML), EU XRechnung, recurring subscription billing, and ISO 20022 SEPA Direct Debit (pain.008) batch generation.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Outbox: <span class="text-slate-200">invoice.issued • invoice.overdue</span>
+          </div>
+        </div>
+
+        <!-- SpendCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">💳</span>
+            <span class="text-xs font-bold font-mono text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded">§26 EStG</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">SpendCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Expensify &amp; Pleo</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Austrian statutory travel allowance calculator: Kilometergeld (42¢/km car, 40¢/km bike) and Tagesdiäten (€26.40/day pro-rated with meal deductions), plus SEPA pain.001 reimbursement batches.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Outbox: <span class="text-slate-200">expense.approved • reimbursement.batched</span>
+          </div>
+        </div>
+
+        <!-- HireCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">🎯</span>
+            <span class="text-xs font-bold font-mono text-indigo-400 bg-indigo-400/10 px-2.5 py-1 rounded">Blind Scorecards</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">HireCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Greenhouse &amp; Lever</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            5-stage applicant tracking pipeline with blind quantitative scorecards (1–5 ratings). Marking a candidate hired automatically triggers contracts, AZG profiles, and IT workstation assignment.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Outbox: <span class="text-slate-200">candidate.hired (multi-app cascade)</span>
+          </div>
+        </div>
+
+        <!-- HelmCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">🧭</span>
+            <span class="text-xs font-bold font-mono text-purple-400 bg-purple-400/10 px-2.5 py-1 rounded">Executive Radar</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">HelmCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Geckoboard &amp; Baremetrics</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            "God's Eye View" executive radar cross-querying all 11 craft SQLite databases for real-time runway, cash burn, ARR/MRR, AZG violations, and automated CEO/CFO board briefings.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Telemetry: <span class="text-slate-200">Live multi-DB direct queries</span>
+          </div>
+        </div>
+
+        <!-- TaskCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📋</span>
+            <span class="text-xs font-bold font-mono text-brand-400 bg-brand-400/10 px-2.5 py-1 rounded">Kanban &amp; Git</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">TaskCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Jira &amp; Linear</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Local-first issue management with multi-project Kanban boards, dependency blocker DAGs, and automatic commit closing regexes via git2.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Inbox: <span class="text-slate-200">ticket.escalated • contract.deadline</span>
+          </div>
+        </div>
+
+        <!-- DeskCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📥</span>
+            <span class="text-xs font-bold font-mono text-brand-400 bg-brand-400/10 px-2.5 py-1 rounded">.eml Maildir</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">DeskCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Zendesk Suite &amp; Intercom</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Support desk operating over raw .eml files with deterministic business-hour SLA clocks (excluding Austrian public holidays) and automated drafting.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Outbox: <span class="text-slate-200">ticket.escalated • signal.negative</span>
+          </div>
+        </div>
+
+        <!-- ContractCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📜</span>
+            <span class="text-xs font-bold font-mono text-brand-400 bg-brand-400/10 px-2.5 py-1 rounded">Ed25519 Sealing</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">ContractCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Ironclad &amp; DocuSign CLM</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Contract lifecycle pipeline with cryptographic Ed25519 tamper-evident seals, automated clause risk scanning, and Austrian Kündigungsfrist notice calculators.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Outbox: <span class="text-slate-200">contract.signed • contract.deadline</span>
+          </div>
+        </div>
+
+        <!-- GainCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📊</span>
+            <span class="text-xs font-bold font-mono text-brand-400 bg-brand-400/10 px-2.5 py-1 rounded">Customer 360</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">GainCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Gainsight CS &amp; ChurnZero</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Customer success cockpit evaluating account health bands (Green / Yellow / Red), tracking NPS sentiment decay, and managing triage Call-to-Actions.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Inbox: <span class="text-slate-200">signal.negative • contract.signed</span>
+          </div>
+        </div>
+
+        <!-- TeamCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">⏱️</span>
+            <span class="text-xs font-bold font-mono text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded">AZG 38.5h</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">TeamCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Personio &amp; Clockodo</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Workforce attendance workstation enforcing Austrian Arbeitszeitgesetz (AZG): 11h daily rest periods, max 10h/day, 50h weekly caps, and leave entitlements.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Outbox: <span class="text-slate-200">timesheet.approved • travel.logged</span>
+          </div>
+        </div>
+
+        <!-- AssetCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">💻</span>
+            <span class="text-xs font-bold font-mono text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded">§7 EStG AfA</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">AssetCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Snipe-IT &amp; Oomnitza</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            IT asset registry calculating Austrian linear depreciation (AfA §7 EStG), Halbjahres-AfA, GWG write-offs, and printable QR asset inventory tags.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Inbox: <span class="text-slate-200">candidate.hired (auto-reserve)</span>
+          </div>
+        </div>
+
+        <!-- FormCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📝</span>
+            <span class="text-xs font-bold font-mono text-brand-400 bg-brand-400/10 px-2.5 py-1 rounded">NPS Detractors</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">FormCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Typeform &amp; Delighted</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Local-first survey intake engine with automated Net Promoter Score (NPS) rollups and real-time detractor event routing directly into Customer Success.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Outbox: <span class="text-slate-200">signal.negative (into gaincraft)</span>
+          </div>
+        </div>
+
+        <!-- WikiCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📚</span>
+            <span class="text-xs font-bold font-mono text-brand-400 bg-brand-400/10 px-2.5 py-1 rounded">FTS5 &amp; ADRs</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">WikiCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Notion Plus &amp; Confluence</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Markdown documentation hub with SQLite FTS5 full-text snippet queries, wiki-link backlink extraction (`[[target|label]]`), and formal Architecture Decision Record state machines.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Storage: <span class="text-slate-200">SQLite WAL + FTS5 full-text</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AUTONOMOUS DOMINO CASCADE (EVENT BUS) -->
+  <section id="domino-flow" class="py-24 relative bg-slate-950 border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="badge-pill bg-purple-400/20 text-purple-400 border border-purple-400/30 mb-3">
+          Zero Webhook Lag • Atomic File Protocol
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          The Autonomous Domino Cascade
+        </h2>
+        <p class="text-slate-400 mt-4 text-base">
+          How one human decision automatically orchestrates five applications across your back-office via the local `craft-biz` atomic event bus.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+        <!-- Step 1 -->
+        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-purple-500">
+          <div class="text-xs font-mono text-purple-400 font-bold mb-1">01 • TRIGGER</div>
+          <h4 class="font-bold text-white mb-2">Hire Candidate</h4>
+          <p class="text-xs text-slate-300 mb-3">Interviewer marks candidate as Hired in <code>hirecraft</code>.</p>
+          <div class="text-[10px] font-mono bg-purple-500/10 text-purple-300 p-2 rounded">
+            emit: candidate.hired
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-brand-500">
+          <div class="text-xs font-mono text-brand-400 font-bold mb-1">02 • CONTRACT</div>
+          <h4 class="font-bold text-white mb-2">Draft Agreement</h4>
+          <p class="text-xs text-slate-300 mb-3"><code>contractcraft</code> generates Austrian ABGB employment contract with Ed25519 seal.</p>
+          <div class="text-[10px] font-mono bg-brand-500/10 text-brand-300 p-2 rounded">
+            emit: contract.signed
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-emerald-500">
+          <div class="text-xs font-mono text-emerald-400 font-bold mb-1">03 • ONBOARD</div>
+          <h4 class="font-bold text-white mb-2">Provision Profile</h4>
+          <p class="text-xs text-slate-300 mb-3"><code>teamcraft</code> sets up 38.5h AZG workweek; <code>assetcraft</code> reserves hardware.</p>
+          <div class="text-[10px] font-mono bg-emerald-500/10 text-emerald-300 p-2 rounded">
+            status: active employee
+          </div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-amber-500">
+          <div class="text-xs font-mono text-amber-400 font-bold mb-1">04 • BILLING</div>
+          <h4 class="font-bold text-white mb-2">Direct Invoicing</h4>
+          <p class="text-xs text-slate-300 mb-3"><code>billcraft</code> drafts compliant Austrian ebInterface 6.1 XML invoice from timesheet.</p>
+          <div class="text-[10px] font-mono bg-amber-500/10 text-amber-300 p-2 rounded">
+            batch: SEPA pain.008
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-rose-500">
+          <div class="text-xs font-mono text-rose-400 font-bold mb-1">05 • COCKPIT</div>
+          <h4 class="font-bold text-white mb-2">Executive Radar</h4>
+          <p class="text-xs text-slate-300 mb-3"><code>helmcraft</code> updates CEO cash runway, burn chart, and board briefing live.</p>
+          <div class="text-[10px] font-mono bg-rose-500/10 text-rose-300 p-2 rounded">
+            state: synchronized
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO PRESENTATION & SCRIPT STORYBOARD -->
+  <section id="video-pitch" class="py-24 relative bg-surface-dark border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <div class="badge-pill bg-rose-400/20 text-rose-400 border border-rose-400/30 mb-3">
+          Client Presentation Script &amp; Video Reel
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
+          The 2.5-Minute Cinematic Pitch
+        </h2>
+        <p class="text-slate-400 mt-4 text-base">
+          Director's screenplay and presentation storyboard designed for high-impact executive board meetings and prospective client demonstrations.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+        <!-- Video Mockup Player -->
+        <div class="glass-panel p-6 rounded-3xl glow-purple border border-indigo-500/30">
+          <div class="relative w-full aspect-video bg-slate-950 rounded-2xl overflow-hidden flex items-center justify-center border border-white/10 group cursor-pointer">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
+            <div class="w-20 h-20 rounded-full bg-brand-500/90 text-white flex items-center justify-center text-3xl shadow-2xl shadow-brand-500/50 group-hover:scale-110 transition-transform">
+              ▶
+            </div>
+            <div class="absolute bottom-6 left-6 right-6">
+              <span class="text-xs font-mono text-brand-400 uppercase tracking-wider font-bold">Product Trailer • 2:30</span>
+              <h4 class="text-xl font-extrabold text-white">The End of SaaS Sprawl: Sovereign Enterprise</h4>
+            </div>
+          </div>
+
+          <div class="mt-6 space-y-3 text-xs text-slate-400 font-mono">
+            <div class="flex justify-between"><span>Resolution:</span><span class="text-slate-200">4K 60FPS Native</span></div>
+            <div class="flex justify-between"><span>Audio Soundtrack:</span><span class="text-slate-200">Industrial Ambient Synth (120 BPM)</span></div>
+            <div class="flex justify-between"><span>Target Audience:</span><span class="text-slate-200">CEO, CFO, Head of Engineering, Legal</span></div>
+          </div>
+        </div>
+
+        <!-- Screenplay Storyboard Breakdown -->
+        <div class="space-y-4">
+          <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-rose-500">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono font-bold text-rose-400">ACT I • 0:00 - 0:35</span>
+              <span class="text-xs text-slate-400">The Agony of SaaS Sprawl</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Visual:</strong> Screen full of 30 browser tabs spinning. Slow Jira ticket reload. Invoices from Stripe, Expensify, Zendesk piling up.<br/>
+              <strong>Voiceover:</strong> <em>"Your company runs on software. But why does modern software feel like an expensive, sluggish tax on your team's sanity? €6,000 per employee, every single year. For web forms that spin."</em>
+            </p>
+          </div>
+
+          <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-brand-500">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono font-bold text-brand-400">ACT II • 0:35 - 1:15</span>
+              <span class="text-xs text-slate-400">The Sovereign Reveal</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Visual:</strong> Bass drop. Cut to dark-mode HelmCraft and BillCraft running at 120 FPS. Zero network delay. Sub-millisecond clicks.<br/>
+              <strong>Voiceover:</strong> <em>"Meet the Sovereign Back-Office Suite. Twelve native applications written in pure, zero-panic Rust. Single-file SQLite databases. Instant response. Zero cloud dependencies."</em>
+            </p>
+          </div>
+
+          <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-purple-500">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono font-bold text-purple-400">ACT III • 1:15 - 2:00</span>
+              <span class="text-xs text-slate-400">The Autonomous Domino Chain</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Visual:</strong> Split-screen. Interviewer clicks "Hire". Instantly, ContractCraft seals an employment contract, TeamCraft creates a 38.5h AZG profile, AssetCraft tags a laptop, and HelmCraft's cash runway recalculates.<br/>
+              <strong>Voiceover:</strong> <em>"No webhooks. No Zapier. Pure atomic file synchronization. Your team acts, and the entire enterprise aligns."</em>
+            </p>
+          </div>
+
+          <div class="glass-panel p-5 rounded-2xl border-l-4 border-l-emerald-500">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono font-bold text-emerald-400">ACT IV • 2:00 - 2:30</span>
+              <span class="text-xs text-slate-400">The Bottom Line</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">
+              <strong>Visual:</strong> Austrian ebInterface 6.1 XML and SEPA pain.001 export files generated with a single click. Final title card: €314,000 saved annually.<br/>
+              <strong>Voiceover:</strong> <em>"Austrian legal compliance out of the box. Zero recurring subscriptions. Forever yours. Welcome to sovereign software."</em>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DOWNLOADS & BROCHURE SECTION -->
+  <section class="py-20 border-t border-white/10 bg-gradient-to-t from-slate-950 to-surface-dark">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <h2 class="text-3xl font-extrabold mb-4">Executive Briefing &amp; Documentation</h2>
+      <p class="text-slate-400 max-w-2xl mx-auto text-sm mb-10">
+        Review the formal architectural specification, Austrian statutory mapping, and complete economic analysis.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <a href="./downloads/backoffice-suite-brochure.pdf" download class="glass-panel p-6 rounded-2xl border border-brand-400/30 hover:border-brand-400 transition-all flex items-center justify-between group">
+          <div class="text-left">
+            <div class="text-xs font-mono text-brand-400 font-bold uppercase mb-1">Printable Document</div>
+            <div class="text-lg font-bold text-white group-hover:text-brand-400 transition-colors">Executive PDF Brochure</div>
+            <div class="text-xs text-slate-400 mt-1">A4 Format • Vector Typography</div>
+          </div>
+          <span class="text-3xl text-brand-400 group-hover:translate-y-1 transition-transform">⬇</span>
+        </a>
+
+        <a href="./downloads/backoffice-suite-brochure.epub" download class="glass-panel p-6 rounded-2xl border border-purple-400/30 hover:border-purple-400 transition-all flex items-center justify-between group">
+          <div class="text-left">
+            <div class="text-xs font-mono text-purple-400 font-bold uppercase mb-1">E-Book Reader Edition</div>
+            <div class="text-lg font-bold text-white group-hover:text-purple-400 transition-colors">Digital EPUB Edition</div>
+            <div class="text-xs text-slate-400 mt-1">Apple Books • Calibre • Kindle</div>
+          </div>
+          <span class="text-3xl text-purple-400 group-hover:translate-y-1 transition-transform">📖</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="py-12 border-t border-white/10 bg-slate-950 text-xs font-mono text-slate-500">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div>© 2026 Sandra Schipal. The Sovereign Craft Suite. Pure Rust Enterprise OS.</div>
+      <div class="flex gap-6">
+        <span>ebInterface 6.1</span>
+        <span>§26 EStG</span>
+        <span>AZG 38.5h</span>
+        <span>AfA §7</span>
+        <span>SEPA ISO 20022</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const APPS = [
+      { domain: "Invoicing & Subscriptions", saas: "Stripe Billing / Chargebee", price: 400, craft: "BillCraft", austrian: "ebInterface 6.1 & SEPA pain.008" },
+      { domain: "Expense & Travel Claims", saas: "Expensify / Pleo / Circula", price: 240, craft: "SpendCraft", austrian: "§26 EStG & SEPA pain.001" },
+      { domain: "Recruiting & ATS Funnel", saas: "Greenhouse / Lever / Ashby", price: 480, craft: "HireCraft", austrian: "Blind Scorecards & Onboarding" },
+      { domain: "Executive Radar Cockpit", saas: "Geckoboard / Baremetrics", price: 360, craft: "HelmCraft", austrian: "Live Telemetry & Board Briefing" },
+      { domain: "Issue Tracking & Sprints", saas: "Jira Enterprise / Linear", price: 360, craft: "TaskCraft", austrian: "Kanban & Git Commit Closing" },
+      { domain: "Customer Support Desk", saas: "Zendesk Suite Enterprise", price: 1380, craft: "DeskCraft", austrian: ".eml Maildir & SLA Clocks" },
+      { domain: "Contract Lifecycle (CLM)", saas: "Ironclad / DocuSign CLM", price: 720, craft: "ContractCraft", austrian: "Ed25519 Sealing & ABGB" },
+      { domain: "Customer Success 360", saas: "Gainsight CS / ChurnZero", price: 1200, craft: "GainCraft", austrian: "Account Health & CTA Triage" },
+      { domain: "Time & Attendance", saas: "Personio / Clockodo", price: 420, craft: "TeamCraft", austrian: "Austrian AZG 38.5h Compliance" },
+      { domain: "IT Asset Inventory & AfA", saas: "Snipe-IT / Oomnitza", price: 180, craft: "AssetCraft", austrian: "§7 EStG AfA & QR Generator" },
+      { domain: "Surveys & NPS Feedback", saas: "Typeform / Delighted", price: 300, craft: "FormCraft", austrian: "Detractor Event Routing" },
+      { domain: "Documentation & ADRs", saas: "Notion Plus / Confluence", price: 240, craft: "WikiCraft", austrian: "FTS5 Search & Backlinks" }
+    ];
+
+    function updateROI(seats) {
+      document.getElementById('seats-display').innerText = seats + " Seats";
+      const totalPerSeat = APPS.reduce((sum, item) => sum + item.price, 0);
+      const totalYearly = totalPerSeat * seats;
+      const totalMonthly = Math.round(totalYearly / 12);
+      const threeYear = totalYearly * 3;
+
+      document.getElementById('total-savings').innerText = "€" + totalYearly.toLocaleString();
+      document.getElementById('per-seat-savings').innerText = "€" + totalPerSeat.toLocaleString() + " saved per seat / year";
+      document.getElementById('monthly-saas-spend').innerText = "€" + totalMonthly.toLocaleString() + " / mo";
+      document.getElementById('three-year-savings').innerText = "€" + threeYear.toLocaleString();
+
+      const tbody = document.getElementById('roi-table-body');
+      tbody.innerHTML = '';
+      APPS.forEach(item => {
+        const itemAnnual = item.price * seats;
+        const row = document.createElement('tr');
+        row.className = "hover:bg-white/5 transition-colors";
+        row.innerHTML = `
+          <td class="py-3 px-3 font-semibold text-white">${item.domain}</td>
+          <td class="py-3 px-3 text-slate-400">${item.saas}</td>
+          <td class="py-3 px-3 text-slate-300">€${item.price.toLocaleString()}</td>
+          <td class="py-3 px-3 text-brand-400 font-bold">${item.craft}</td>
+          <td class="py-3 px-3 text-right font-bold text-emerald-400">€${itemAnnual.toLocaleString()}</td>
+        `;
+        tbody.appendChild(row);
+      });
+    }
+
+    // Initialize on load
+    updateROI(50);
+  </script>
+</body>
+</html>
