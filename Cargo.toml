@@ -1,0 +1,20 @@
+[workspace]
+resolver = "2"
+members = [
+    "crates/craft-showcase-wasm",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "MIT OR Apache-2.0"
+authors = ["Sandra Schipal (antigravity) <sandra@schipal.at>"]
+repository = "https://github.com/sandraschi/craft-showcase"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"

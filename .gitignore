@@ -1,0 +1,5 @@
+/target/
+crates/craft-showcase-wasm/dist/
+**/*.rs.bk
+.DS_Store
+Thumbs.db
