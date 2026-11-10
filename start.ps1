@@ -36,4 +36,17 @@ if ($Build) {
 $webDir = Join-Path $RepoRoot "web"
 Write-Host "Starting Sovereign Craft Suite Showcase at http://localhost:$Port ..." -ForegroundColor Cyan
 Start-Process "http://localhost:$Port"
-python -m http.server $Port --directory $webDir
+
+$pyLauncher = if (Get-Command py -ErrorAction SilentlyContinue) { "py" }
+              elseif (Get-Command python -ErrorAction SilentlyContinue) { "python" }
+              elseif (Get-Command python3 -ErrorAction SilentlyContinue) { "python3" }
+              else { $null }
+
+if ($pyLauncher) {
+    & $pyLauncher -m http.server $Port --directory $webDir
+} elseif (Get-Command uv -ErrorAction SilentlyContinue) {
+    uv run python -m http.server $Port --directory $webDir
+} else {
+    Write-Host "ERROR: Neither py, python, python3, nor uv found." -ForegroundColor Red
+    exit 1
+}
