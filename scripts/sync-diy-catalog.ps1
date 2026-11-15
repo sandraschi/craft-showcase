@@ -31,6 +31,7 @@ $BackofficeMeta = @{
     'shopcraft'       = @{ name = 'ShopCraft';       icon = '🏪'; badge = 'POS & Z-Bon';     replaces = 'SumUp POS, Lightspeed & Ready2Order'; desc = 'Physical shop POS with EAN-13 barcode checkout, split-tender payments, immutable Storno, RKSV-style signatures, Z-Bon shift closing, and 42-col ESC/POS receipts.' }
     'amazonshopcraft' = @{ name = 'AmazonShopCraft'; icon = '📦'; badge = 'SP-API & Margin'; replaces = 'Helium10, Sellerboard & ChannelEngine'; desc = 'Local-first Amazon merchant cockpit with true integer-cent net-margin analytics, Buy Box repricer guardrails, FBA replenishment alerts, and VAT invoice tracking.' }
     'wholesalecraft'  = @{ name = 'WholesaleCraft';  icon = '🏭'; badge = 'B2B & Net-30/60'; replaces = 'OroCommerce, NuORDER & Shopify Plus B2B'; desc = 'Local-first B2B trade & bulk order portal with MOQ/pack-size enforcement, Standard/Silver/Gold tiers, EU VAT UID reverse-charge, and Net-30/60 credit limits.' }
+    'digitalshopcraft'= @{ name = 'DigitalShopCraft';icon = '🔐'; badge = 'Licenses & OSS';  replaces = 'Gumroad, Lemon Squeezy & Paddle';      desc = 'Local-first digital goods storefront with EU VAT OSS country rates, instant DSC license key issuance, download-limit tokens, and Domino Bus VAT booking.' }
 }
 
 $ExcludeRepos = @(

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T23:16:14+01:00",
-  "count": 53,
+  "generated_at": "2026-11-15T23:25:27+01:00",
+  "count": 54,
   "apps": [
     {
       "id": "aicraft",
@@ -318,6 +318,26 @@
       "installer": true,
       "desc": "Local developer cockpit for managing repos, builds, and AI coding sessions across IDEs.",
       "highlights": []
+    },
+    {
+      "id": "digitalshopcraft",
+      "name": "DigitalShopCraft",
+      "repo": "digitalshopcraft",
+      "suite": "backoffice",
+      "cat": "backoffice",
+      "icon": "🔐",
+      "badge": "Licenses & OSS",
+      "replaces": "Gumroad, Lemon Squeezy & Paddle",
+      "version": "v0.1.0",
+      "github": "https://github.com/sandraschi/digitalshopcraft",
+      "installer": true,
+      "desc": "Local-first digital goods storefront with EU VAT OSS country rates, instant DSC license key issuance, download-limit tokens, and Domino Bus VAT booking.",
+      "highlights": [
+        "EU VAT OSS Engine: Country-specific VAT rates (AT 20%, DE 19%, FR 20%, NL 21%, IT 22%, ES 21%, SE 25%, CH 0% export).",
+        "License Keys & Download Tokens: Deterministic DSC-XXXX-XXXX-XXXX key issuance, download-limit enforcement, and instant revocation.",
+        "Built-in Digital Storefront: digitalshopcraft serve --bind 127.0.0.1:11266 with live EU OSS VAT calculation and instant key delivery.",
+        "Domino Bus: Emits order.paid and digital.oss_vat_booked to billcraft and buchcraft."
+      ]
     },
     {
       "id": "djcraft",
