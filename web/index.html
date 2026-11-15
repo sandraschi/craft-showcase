@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Local Craft Suite — Enterprise Back-Office in Pure Rust</title>
-  <meta name="description" content="Twelve local-first desktop applications replacing commercial SaaS sprawl with zero cloud dependencies, instant performance, and automated Austrian & European statutory compliance." />
+  <meta name="description" content="Thirteen local-first desktop applications replacing commercial SaaS sprawl with zero cloud dependencies, instant performance, and automated Austrian & European statutory compliance." />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -91,7 +91,7 @@
       <nav class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-300">
         <a href="#wasm-demo" class="hover:text-brand-400 transition-colors">Live WASM Demo</a>
         <a href="#roi-calculator" class="hover:text-brand-400 transition-colors">ROI Calculator</a>
-        <a href="#suite-apps" class="hover:text-brand-400 transition-colors">12 Applications</a>
+        <a href="#suite-apps" class="hover:text-brand-400 transition-colors">13 Applications</a>
         <a href="#domino-flow" class="hover:text-brand-400 transition-colors">Event Cascade</a>
         <a href="#video-pitch" class="hover:text-brand-400 transition-colors">Video Pitch</a>
       </nav>
@@ -119,7 +119,7 @@
 
       <h1 class="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.1] mb-6">
         Eliminate SaaS Sprawl.<br/>
-        Twelve <a href="./local.html" title="What do Local, Offline, and Airgapped mean?" class="gradient-text underline decoration-brand-400/50 decoration-2 underline-offset-8 hover:decoration-brand-400">Local-First</a> <span class="gradient-text">Applications</span> in Pure Rust.
+        Thirteen <a href="./local.html" title="What do Local, Offline, and Airgapped mean?" class="gradient-text underline decoration-brand-400/50 decoration-2 underline-offset-8 hover:decoration-brand-400">Local-First</a> <span class="gradient-text">Applications</span> in Pure Rust.
       </h1>
 
       <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-300 font-normal leading-relaxed mb-10">
@@ -143,7 +143,7 @@
         <div class="glass-panel p-6 rounded-2xl">
           <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Annual Savings (50 Seats)</div>
           <div class="text-3xl font-extrabold text-emerald-400">€314,000</div>
-          <div class="text-xs text-slate-400 mt-1">Replaces 12 commercial subscriptions</div>
+          <div class="text-xs text-slate-400 mt-1">Replaces 13 commercial subscriptions</div>
         </div>
         <div class="glass-panel p-6 rounded-2xl">
           <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Execution Speed</div>
@@ -290,7 +290,7 @@
     </div>
   </section>
 
-  <!-- THE 12 APPLICATIONS GRID -->
+  <!-- THE 13 APPLICATIONS GRID -->
   <section id="suite-apps" class="py-24 relative bg-surface-dark border-t border-white/10">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-16">
@@ -298,7 +298,7 @@
           Complete Enterprise Ecosystem
         </div>
         <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tight">
-          The 12 Local-First Applications
+          The 13 Local-First Applications
         </h2>
         <p class="text-slate-400 mt-4 text-base">
           Every tool is a full 4-crate Rust application (`*-store`, `*-core`, `*-mcp`, `*-app`) with native desktop GUI and stdio MCP server.
@@ -497,6 +497,22 @@
             Storage: <span class="text-slate-200">SQLite WAL + FTS5 full-text</span>
           </div>
         </div>
+
+        <!-- BuchCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📒</span>
+            <span class="text-xs font-bold font-mono text-emerald-400 bg-emerald-400/10 px-2.5 py-1 rounded">EKR &amp; U30</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">BuchCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces BMD NTCS, RZL, DATEV &amp; sevDesk</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Austrian double-entry bookkeeping with EKR chart, integer-cent balanced entries, immutable SQLite triggers with linked Storno, VAT keys (U20/U10/V20/IGE20), Saldenliste, and U30 Kennzahlen pre-fill.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Inbox: <span class="text-slate-200">asset.depreciation_due • Bank CSV</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -626,7 +642,7 @@
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">
               <strong>Visual:</strong> Bass drop. Cut to dark-mode HelmCraft and BillCraft running at 120 FPS. Zero network delay. Sub-millisecond clicks.<br/>
-              <strong>Voiceover:</strong> <em>"Meet the Local Back-Office Suite. Twelve native applications written in pure, zero-panic Rust. Single-file SQLite databases. Instant response. Zero cloud dependencies."</em>
+              <strong>Voiceover:</strong> <em>"Meet the Local Back-Office Suite. Thirteen native applications written in pure, zero-panic Rust. Single-file SQLite databases. Instant response. Zero cloud dependencies."</em>
             </p>
           </div>
 
@@ -713,7 +729,8 @@
       { domain: "Time & Attendance", saas: "Personio / Clockodo", price: 420, craft: "TeamCraft", austrian: "Austrian AZG 38.5h Compliance" },
       { domain: "IT Asset Inventory & AfA", saas: "Snipe-IT / Oomnitza", price: 180, craft: "AssetCraft", austrian: "§7 EStG AfA & QR Generator" },
       { domain: "Surveys & NPS Feedback", saas: "Typeform / Delighted", price: 300, craft: "FormCraft", austrian: "Detractor Event Routing" },
-      { domain: "Documentation & ADRs", saas: "Notion Plus / Confluence", price: 240, craft: "WikiCraft", austrian: "FTS5 Search & Backlinks" }
+      { domain: "Documentation & ADRs", saas: "Notion Plus / Confluence", price: 240, craft: "WikiCraft", austrian: "FTS5 Search & Backlinks" },
+      { domain: "Austrian Bookkeeping", saas: "BMD NTCS / sevDesk / DATEV", price: 480, craft: "BuchCraft", austrian: "EKR, Storno & U30 Kennzahlen" }
     ];
 
     function updateROI(seats) {
