@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T20:47:03+01:00",
-  "count": 52,
+  "generated_at": "2026-11-15T23:16:14+01:00",
+  "count": 53,
   "apps": [
     {
       "id": "aicraft",
@@ -999,6 +999,27 @@
         "crates/webshopcraft-core (L1): SQLite WAL store (products, promo_codes, shipping_zones, orders, order_items, append-only order_events), integer-cent Money math (craft-biz), prom...",
         "crates/webshopcraft-mcp (L2): Single-binary webshopcraft CLI (--json) and MCP 2024-11-05 stdio server.",
         "storefront/: Zero-build responsive HTML/CSS/JS shop front (index.html, styles.css, app.js) hydrated from catalog.json (with embedded fallback for offline file:// preview)."
+      ]
+    },
+    {
+      "id": "wholesalecraft",
+      "name": "WholesaleCraft",
+      "repo": "wholesalecraft",
+      "suite": "backoffice",
+      "cat": "backoffice",
+      "icon": "🏭",
+      "badge": "B2B & Net-30/60",
+      "replaces": "OroCommerce, NuORDER & Shopify Plus B2B",
+      "version": "v0.1.0",
+      "github": "https://github.com/sandraschi/wholesalecraft",
+      "installer": true,
+      "desc": "Local-first B2B trade & bulk order portal with MOQ/pack-size enforcement, Standard/Silver/Gold tiers, EU VAT UID reverse-charge, and Net-30/60 credit limits.",
+      "highlights": [
+        "Trade Accounts & Credit: Standard, Silver, and Gold price tiers with Prepaid, Net30, and Net60 credit limit enforcement.",
+        "MOQ & Pack Multiples: Enforces minimum order quantities, carton pack-size multiples, and automatic +5% volume bonuses at 3x MOQ.",
+        "EU VAT Reverse Charge: Automatic 0% reverse-charge for verified cross-border EU/CH UIDs and 20% domestic Austrian VAT.",
+        "B2B Quick-Order Portal: Built-in HTTP portal (wholesalecraft serve --bind 127.0.0.1:11264) with bulk SKU grid, CSV paste import, and live Purchase Order submission.",
+        "Domino Bus: Emits channel.stock_reserved, b2b.order_submitted, and b2b.invoice_due events to stockcraft, billcraft, and buchcraft."
       ]
     },
     {
