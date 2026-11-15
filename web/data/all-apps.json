@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-15T23:25:27+01:00",
-  "count": 54,
+  "generated_at": "2026-11-16T00:47:34+01:00",
+  "count": 55,
   "apps": [
     {
       "id": "aicraft",
@@ -912,6 +912,27 @@
         "crates/studiocraft-core L1 dispatch (project, adapters, handoff, skills, workflows, llm)",
         "crates/studiocraft-mcp L2 CLI + stdio (12 tools)",
         "crates/studiocraft-app L3 egui host (in-process, --smoke, no ports)"
+      ]
+    },
+    {
+      "id": "subshopcraft",
+      "name": "SubShopCraft",
+      "repo": "subshopcraft",
+      "suite": "backoffice",
+      "cat": "backoffice",
+      "icon": "📦",
+      "badge": "SEPA & Renewals",
+      "replaces": "Recharge, Bold & Cratejoy",
+      "version": "v0.1.0",
+      "github": "https://github.com/sandraschi/subshopcraft",
+      "installer": true,
+      "desc": "Local-first recurring subscription box & replenishment storefront with SEPA pain.008 mandates, skip/pause/swap portal, and MRR tracking.",
+      "highlights": [
+        "Subscription Cadences & Discounts: Every 14 days, Monthly, and Quarterly boxes with subscriber discounts (10% to 20%).",
+        "SEPA pain.008 Mandates: Tracks IBAN and unique MND-XXXXX mandate references per subscriber.",
+        "Self-Service Lifecycle: Skip next box, pause/resume, swap plan SKU, and bill renewal cycles.",
+        "Built-in Portal: subshopcraft serve --bind 127.0.0.1:11268 with live subscriber skip/pause controls.",
+        "Domino Bus: Emits sub.mandate_created, order.paid, sub.renewal_billed, and channel.sale_committed."
       ]
     },
     {
