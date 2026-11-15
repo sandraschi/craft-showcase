@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Local, Offline &amp; Airgapped — Why We Skip Rent-Seeking SaaS</title>
+  <meta name="description" content="A plain-English guide to what local, offline, and airgapped software actually mean — and why owning your tools beats paying monthly SaaS rent forever." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              400: '#38bdf8',
+              500: '#0284c7',
+            },
+            diy: {
+              400: '#a78bfa',
+              500: '#8b5cf6',
+            },
+            surface: {
+              dark: '#090d16',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090d16;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #34d399 55%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-500 selection:text-white">
+
+  <!-- NAVIGATION BAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-brand-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
+          <span class="text-white font-extrabold text-xl">🏠</span>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight">Local <span class="text-emerald-400">Explained</span></span>
+          <span class="hidden sm:inline-block ml-2 text-xs text-slate-400 font-mono">Plain-English Guide</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="inline-flex items-center p-1 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-bold">
+          <a href="./index.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">Back-Office</a>
+          <a href="./diy.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">DIY Craft Apps</a>
+          <span class="px-3 py-1.5 rounded-lg bg-emerald-500 text-white shadow">Why Local?</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="relative pt-36 pb-14 overflow-hidden">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[320px] bg-emerald-500/15 blur-[140px] pointer-events-none rounded-full"></div>
+    <div class="max-w-4xl mx-auto px-6 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-400 font-mono text-xs font-semibold uppercase tracking-wider mb-6">
+        No Jargon • No Hype
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+        Local, Offline &amp; Airgapped<br/>
+        <span class="gradient-text">What They Actually Mean</span>
+      </h1>
+
+      <p class="text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+        People often lump these three words together, or dress them up in marketing buzzwords. They mean three different, very practical things for how your software behaves — and who controls your work.
+      </p>
+    </div>
+  </section>
+
+  <!-- THREE DISTINCTIONS -->
+  <section class="py-12 border-t border-white/10">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Local -->
+        <div class="glass-panel p-7 rounded-2xl border-t-4 border-t-brand-400">
+          <div class="text-xs font-mono uppercase text-brand-400 tracking-wider mb-2">1 • Where it lives</div>
+          <h2 class="text-2xl font-extrabold text-white mb-3">Local</h2>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            The program and your files live on <strong>your own computer or office network</strong> — not on a vendor's cloud server.<sup>1</sup>
+          </p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            <strong>Does it still use the internet?</strong> It can, when you ask it to — for example, to send an email, fetch a map, or pull an update. The difference is that your data isn't rented back to you from somebody else's database.
+          </p>
+        </div>
+
+        <!-- Offline -->
+        <div class="glass-panel p-7 rounded-2xl border-t-4 border-t-emerald-400">
+          <div class="text-xs font-mono uppercase text-emerald-400 tracking-wider mb-2">2 • When Wi-Fi drops</div>
+          <h2 class="text-2xl font-extrabold text-white mb-3">Offline</h2>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Every core feature keeps working <strong>with no internet connection at all</strong>.
+          </p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            <strong>Why it matters:</strong> On a flight, on a train, or during an outage, you can still write invoices, search your books, edit animations, or inspect contracts. Local doesn't automatically mean offline — our apps are built to be both.
+          </p>
+        </div>
+
+        <!-- Airgapped -->
+        <div class="glass-panel p-7 rounded-2xl border-t-4 border-t-diy-400">
+          <div class="text-xs font-mono uppercase text-diy-400 tracking-wider mb-2">3 • Strict isolation (optional)</div>
+          <h2 class="text-2xl font-extrabold text-white mb-3">Airgapped</h2>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            A <strong>zero-network lock</strong>: the software is physically or programmatically barred from opening any outbound connection.
+          </p>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            <strong>Who wants this:</strong> Legal, finance, medical, or R&amp;D teams handling sensitive material who need a hard guarantee that nothing can phone home, upload telemetry, or leak over a network.
+          </p>
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-500 font-mono mt-5">
+        <sup>1</sup> Footnote: In plain words, "local" simply means the app runs on your machine rather than in a remote browser tab owned by another company.
+      </p>
+    </div>
+  </section>
+
+  <!-- VS PAYOLA SAAS -->
+  <section class="py-16 border-t border-white/10 bg-slate-950/60">
+    <div class="max-w-5xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl sm:text-4xl font-extrabold mb-3">Why This Beats "Payola SaaS"</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">
+          Modern cloud subscriptions are designed to keep charging you forever for software you already know how to use.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="glass-panel p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-white mb-2">💸 Stop paying monthly rent per seat</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            With cloud SaaS, a 25-person team pays every single month for invoicing, HR, expenses, helpdesk, and notes — forever. Stop paying, and you lose access to your own workflows. Local apps have no per-seat tollbooth.
+          </p>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-white mb-2">🔓 Your files aren't held hostage</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Your records sit on your own drive in standard, inspectable formats (SQLite, XML, Markdown, JSON). Nobody can lock your account, double your renewal price next year, or delete a feature you rely on.
+          </p>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-white mb-2">🤫 No silent spying or AI training</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Cloud tools increasingly mine your contracts, drafts, and customer tickets for analytics or model training. When the app runs on your own machine, your business stays your business.
+          </p>
+        </div>
+
+        <div class="glass-panel p-6 rounded-2xl">
+          <h3 class="text-lg font-bold text-white mb-2">⚡ Instant speed, zero loading spinners</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Every click doesn't have to travel across an ocean to a crowded data center and back. Native desktop apps open in milliseconds and stay snappy even with thousands of records.
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-12 flex flex-wrap items-center justify-center gap-4">
+        <a href="./index.html" class="px-7 py-3.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm transition-all shadow-lg shadow-brand-500/25">
+          Explore the 12 Back-Office Apps →
+        </a>
+        <a href="./diy.html" class="px-7 py-3.5 rounded-xl bg-diy-500 hover:bg-diy-400 text-white font-bold text-sm transition-all shadow-lg shadow-diy-500/25">
+          Browse the 33 DIY Craft Apps →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 border-t border-white/10 text-center text-xs text-slate-500 font-mono">
+    Craft Showcase • <a href="./index.html" class="text-brand-400 hover:underline">Back-Office Suite</a> • <a href="./diy.html" class="text-diy-400 hover:underline">DIY Craft Fleet</a>
+  </footer>
+</body>
+</html>

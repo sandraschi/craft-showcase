@@ -22,8 +22,9 @@ if ($Smoke -or ($args -contains "--smoke")) {
     $wasmHtml = Join-Path $RepoRoot "web\wasm\index.html"
     $landingHtml = Join-Path $RepoRoot "web\index.html"
     $diyHtml = Join-Path $RepoRoot "web\diy.html"
+    $localHtml = Join-Path $RepoRoot "web\local.html"
     $diyData = Join-Path $RepoRoot "web\data\diy-apps.json"
-    if ((Test-Path $wasmHtml) -and (Test-Path $landingHtml) -and (Test-Path $diyHtml) -and (Test-Path $diyData)) {
+    if ((Test-Path $wasmHtml) -and (Test-Path $landingHtml) -and (Test-Path $diyHtml) -and (Test-Path $localHtml) -and (Test-Path $diyData)) {
         Write-Host "smoke: ok (craft-showcase web, diy & wasm)" -ForegroundColor Green
         exit 0
     } else {
