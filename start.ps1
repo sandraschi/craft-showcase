@@ -54,10 +54,11 @@ $pyLauncher = if (Get-Command py -ErrorAction SilentlyContinue) { "py" }
               elseif (Get-Command python3 -ErrorAction SilentlyContinue) { "python3" }
               else { $null }
 
+$serveScript = Join-Path $RepoRoot "scripts\serve.py"
 if ($pyLauncher) {
-    & $pyLauncher -m http.server $Port --directory $webDir
+    & $pyLauncher $serveScript --port $Port --directory $webDir
 } elseif (Get-Command uv -ErrorAction SilentlyContinue) {
-    uv run python -m http.server $Port --directory $webDir
+    uv run python $serveScript --port $Port --directory $webDir
 } else {
     Write-Host "ERROR: Neither py, python, python3, nor uv found." -ForegroundColor Red
     exit 1

@@ -1,0 +1,33 @@
+title: Local Craft Suite - Product Trailer
+duration_target: 65
+voice: heart
+aspect_ratio: "16:9"
+resolution: 720p
+bg_music: false
+steps:
+  - action: text_overlay
+    text: "Local Craft Suite\n\nThe End of SaaS Sprawl"
+    wait: 4
+    say: "Your company runs on software. Why does modern software feel like an expensive, sluggish tax on your team's sanity?"
+  - action: goto
+    url: /
+    wait: 4
+    say: "Meet the Local Craft Suite. Fifty-two native applications written in pure, zero-panic Rust, with single-file SQLite databases and zero cloud dependencies."
+  - action: scroll
+    wait: 4
+    say: "No webhooks. No Zapier. Pure atomic file synchronization via the Craft Domino Bus. When your team acts, the entire enterprise aligns."
+  - action: goto
+    url: /local.html
+    wait: 5
+    say: "Thirteen core back-office applications cover accounting, invoicing, contracts, HR, and asset tracking with Austrian ebInterface and SEPA compliance out of the box."
+  - action: goto
+    url: /shop.html
+    wait: 5
+    say: "Now expanded with the Shop Craft Commerce Suite: WebShopCraft, ShopCraft, and AmazonShopCraft, bridging brick-and-mortar POS, web storefronts, and marketplace inventory."
+  - action: goto
+    url: /diy.html
+    wait: 4
+    say: "Plus thirty-five specialized DIY, studio, and vertical craft apps, all sharing the same fast native interface and local data ownership."
+  - action: end
+    wait: 3
+    say: "Zero recurring subscriptions. Forever yours. Welcome to local-first software."

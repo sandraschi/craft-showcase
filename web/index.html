@@ -99,6 +99,7 @@
       <div class="flex items-center gap-3">
         <div class="hidden sm:inline-flex items-center p-1 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-bold">
           <span class="px-3 py-1.5 rounded-lg bg-brand-500 text-white shadow">Back-Office</span>
+          <a href="./shop.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">Shop Craft</a>
           <a href="./diy.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">DIY Craft Apps</a>
         </div>
         <a href="#wasm-demo" class="px-5 py-2.5 rounded-lg bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm transition-all shadow-lg shadow-brand-500/25">
@@ -602,17 +603,21 @@
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-        <!-- Video Mockup Player -->
+        <!-- Product Trailer Video Player -->
         <div class="glass-panel p-6 rounded-3xl glow-purple border border-indigo-500/30">
-          <div class="relative w-full aspect-video bg-slate-950 rounded-2xl overflow-hidden flex items-center justify-center border border-white/10 group cursor-pointer">
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent"></div>
-            <div class="w-20 h-20 rounded-full bg-brand-500/90 text-white flex items-center justify-center text-3xl shadow-2xl shadow-brand-500/50 group-hover:scale-110 transition-transform">
-              ▶
-            </div>
-            <div class="absolute bottom-6 left-6 right-6">
-              <span class="text-xs font-mono text-brand-400 uppercase tracking-wider font-bold">Product Trailer • 2:30</span>
-              <h4 class="text-xl font-extrabold text-white">The End of SaaS Sprawl: Local-First Enterprise</h4>
-            </div>
+          <div class="relative w-full aspect-video bg-slate-950 rounded-2xl overflow-hidden border border-white/10">
+            <video
+              id="craft-trailer-video"
+              class="w-full h-full object-cover"
+              controls
+              playsinline
+              preload="metadata"
+              poster="./media/craft-trailer-poster.jpg"
+            >
+              <source src="./media/craft-trailer.mp4" type="video/mp4" />
+              <track kind="subtitles" srclang="en" label="English" src="./media/craft-trailer.vtt" default />
+              Your browser does not support the HTML5 video tag.
+            </video>
           </div>
 
           <div class="mt-6 space-y-3 text-xs text-slate-400 font-mono">
