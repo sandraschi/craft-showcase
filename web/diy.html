@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DIY Craft Fleet — Local-First Apps in Pure Rust</title>
+  <meta name="description" content="Independent, local-first creative, AI, hardware, GIS, and developer workstations built on the ArtCraft 3-tier pattern: core library, CLI + MCP stdio, and native egui studio." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: {
+              400: '#38bdf8',
+              500: '#0284c7',
+              600: '#0369a1',
+            },
+            diy: {
+              400: '#a78bfa',
+              500: '#8b5cf6',
+              600: '#7c3aed',
+            },
+            surface: {
+              dark: '#090d16',
+              card: '#0f172a',
+              cardborder: '#1e293b',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090d16;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-text-diy {
+      background: linear-gradient(135deg, #a78bfa 0%, #38bdf8 50%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="selection:bg-diy-500 selection:text-white">
+
+  <!-- NAVIGATION BAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-diy-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-diy-500/20">
+          <span class="text-white font-extrabold text-xl">🛠️</span>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight">DIY <span class="text-diy-400">Craft Fleet</span></span>
+          <span class="hidden sm:inline-block ml-2 text-xs text-slate-400 font-mono">ArtCraft 3-Tier • Pure Rust</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-300">
+        <a href="#fleet-catalog" class="hover:text-diy-400 transition-colors">App Catalog</a>
+        <a href="#architecture" class="hover:text-diy-400 transition-colors">3-Tier Pattern</a>
+        <a href="./index.html" class="hover:text-brand-400 transition-colors">Back-Office Suite →</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <div class="inline-flex items-center p-1 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-bold">
+          <a href="./index.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">Back-Office</a>
+          <span class="px-3 py-1.5 rounded-lg bg-diy-500 text-white shadow">DIY Craft Apps</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-36 pb-16 overflow-hidden">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[340px] bg-diy-500/15 blur-[140px] pointer-events-none rounded-full"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-diy-400/10 border border-diy-400/30 text-diy-400 font-mono text-xs font-semibold uppercase tracking-wider mb-8">
+        <span class="w-2 h-2 rounded-full bg-diy-400 animate-pulse"></span>
+        Creative • AI • Hardware • GIS • Fleet Infra
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+        The Local-First<br/>
+        <span class="gradient-text-diy">DIY Craft Fleet</span>
+      </h1>
+
+      <p class="max-w-3xl mx-auto text-lg text-slate-300 leading-relaxed mb-10">
+        Local-first creative studios, robotics &amp; CAD workbenches, offline GIS, quantitative terminals, and agentic developer tools — each built as a zero-Electron Rust workspace with an in-process core, CLI + MCP stdio server, and native <code class="font-mono text-diy-400">egui</code> desktop app.
+      </p>
+
+      <!-- Key Metrics Row -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-5 max-w-4xl mx-auto pt-8 border-t border-white/10 text-left">
+        <div class="glass-panel p-5 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">DIY Fleet Apps</div>
+          <div id="metric-total" class="text-2xl sm:text-3xl font-extrabold text-diy-400">33</div>
+          <div class="text-xs text-slate-400 mt-1">Separate from Back-Office</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Architecture</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-white">3-Tier</div>
+          <div class="text-xs text-slate-400 mt-1">Core • CLI/MCP • egui UI</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Agent Protocol</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">MCP</div>
+          <div class="text-xs text-slate-400 mt-1">JSON-RPC over stdio</div>
+        </div>
+        <div class="glass-panel p-5 rounded-2xl">
+          <div class="text-xs font-mono uppercase text-slate-400 tracking-wider mb-1">Unified Launcher</div>
+          <div class="text-2xl sm:text-3xl font-extrabold text-brand-400">CraftDeck</div>
+          <div class="text-xs text-slate-400 mt-1">Install, update &amp; launch</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATALOG SECTION -->
+  <section id="fleet-catalog" class="py-16 relative border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-6">
+      <!-- Filter & Search Controls -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-10">
+        <div id="category-pills" class="flex flex-wrap gap-2">
+          <button data-cat="all" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold bg-diy-500 text-white transition-all">All (<span id="count-all">0</span>)</button>
+          <button data-cat="ai" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold glass-panel text-slate-300 hover:text-white transition-all">AI &amp; Agents</button>
+          <button data-cat="creative" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold glass-panel text-slate-300 hover:text-white transition-all">Creative &amp; Media</button>
+          <button data-cat="writing" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold glass-panel text-slate-300 hover:text-white transition-all">Writing &amp; Knowledge</button>
+          <button data-cat="hardware" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold glass-panel text-slate-300 hover:text-white transition-all">Hardware, CAD &amp; GIS</button>
+          <button data-cat="infra" class="cat-btn px-4 py-2 rounded-xl text-xs font-bold glass-panel text-slate-300 hover:text-white transition-all">Data &amp; Fleet Infra</button>
+        </div>
+
+        <div class="relative w-full lg:w-80">
+          <input id="search-input" type="search" placeholder="Filter by name, repo, or capability..."
+            class="w-full px-4 py-2.5 rounded-xl bg-slate-900/90 border border-white/10 text-sm text-white placeholder-slate-400 focus:outline-none focus:border-diy-400" />
+        </div>
+      </div>
+
+      <!-- Cards Grid -->
+      <div id="apps-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+      <div id="empty-state" class="hidden text-center py-16 glass-panel rounded-2xl">
+        <p class="text-slate-300 text-lg font-semibold">No matching DIY craft apps.</p>
+        <p class="text-slate-400 text-sm mt-1">Try clearing your search or selecting "All".</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-TIER ARCHITECTURE CALLOUT -->
+  <section id="architecture" class="py-20 border-t border-white/10 bg-slate-950/60">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-extrabold mb-3">Why a Separate Showcase?</h2>
+        <p class="text-slate-400 max-w-2xl mx-auto">
+          The <a href="./index.html" class="text-brand-400 hover:underline">Back-Office Suite</a> targets enterprise operations (Austrian ebInterface, SEPA, AZG 38.5h, ROI). The DIY Craft Fleet shares the same Rust ArtCraft harness, but serves makers, creators, researchers, and engineers.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="glass-panel p-6 rounded-2xl">
+          <div class="text-xs font-mono text-diy-400 uppercase mb-2">Layer 1 • Core</div>
+          <h3 class="text-lg font-bold mb-2">Pure-Rust Domain Engine</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            In-process state machines, SQLite/file stores, DSP, geometry, or kinematics with strict clippy lints and zero network/cloud lock-in.
+          </p>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl">
+          <div class="text-xs font-mono text-emerald-400 uppercase mb-2">Layer 2 • CLI &amp; MCP</div>
+          <h3 class="text-lg font-bold mb-2">Scriptable &amp; Agent-Ready</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Every action exposed over a unified <code class="font-mono text-emerald-400">Command</code> dispatch bus — runnable from the terminal or by AI agents over MCP stdio.
+          </p>
+        </div>
+        <div class="glass-panel p-6 rounded-2xl">
+          <div class="text-xs font-mono text-brand-400 uppercase mb-2">Layer 3 • egui Studio</div>
+          <h3 class="text-lg font-bold mb-2">Native Desktop Speed</h3>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Immediate-mode <code class="font-mono text-brand-400">egui / wgpu</code> interfaces with sub-second startup and a fraction of Electron's memory footprint.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 border-t border-white/10 text-center text-xs text-slate-500 font-mono">
+    DIY Craft Fleet Showcase • Companion to <a href="./index.html" class="text-brand-400 hover:underline">Local Back-Office Suite</a> • <span id="sync-stamp" class="text-slate-300">loading catalog...</span>
+  </footer>
+
+  <script>
+    const CAT_LABELS = {
+      ai: "AI & Agents",
+      creative: "Creative & Media",
+      writing: "Writing & Knowledge",
+      hardware: "Hardware, CAD & GIS",
+      infra: "Data & Fleet Infra"
+    };
+
+    let DIY_APPS = [];
+    let activeCat = "all";
+    let searchTerm = "";
+
+    const grid = document.getElementById("apps-grid");
+    const emptyState = document.getElementById("empty-state");
+    const searchInput = document.getElementById("search-input");
+    const countAll = document.getElementById("count-all");
+    const metricTotal = document.getElementById("metric-total");
+    const syncStamp = document.getElementById("sync-stamp");
+
+    function render() {
+      const q = searchTerm.trim().toLowerCase();
+      const filtered = DIY_APPS.filter(app => {
+        const catOk = activeCat === "all" || app.cat === activeCat;
+        const textOk = !q ||
+          app.name.toLowerCase().includes(q) ||
+          app.repo.toLowerCase().includes(q) ||
+          (app.badge && app.badge.toLowerCase().includes(q)) ||
+          (app.version && app.version.toLowerCase().includes(q)) ||
+          app.desc.toLowerCase().includes(q);
+        return catOk && textOk;
+      });
+
+      grid.innerHTML = "";
+      if (filtered.length === 0) {
+        emptyState.classList.remove("hidden");
+        return;
+      }
+      emptyState.classList.add("hidden");
+
+      for (const app of filtered) {
+        const card = document.createElement("div");
+        card.className = "glass-panel p-6 rounded-2xl hover:border-diy-400/50 transition-all group flex flex-col justify-between";
+        const verTag = app.version ? `<span class="text-slate-400">${app.version}</span>` : `<span class="text-emerald-400">local-first</span>`;
+        const ghUrl = app.github || `https://github.com/sandraschi/${app.repo}`;
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-2xl">${app.icon}</span>
+              <span class="text-xs font-bold font-mono text-diy-400 bg-diy-400/10 px-2.5 py-1 rounded">${app.badge}</span>
+            </div>
+            <h3 class="text-xl font-bold text-white group-hover:text-diy-400 transition-colors">${app.name}</h3>
+            <p class="text-xs text-slate-400 font-mono mb-3">${CAT_LABELS[app.cat] || "Fleet App"} • <span class="text-slate-300">${app.repo}/</span></p>
+            <p class="text-sm text-slate-300 leading-relaxed mb-4">${app.desc}</p>
+          </div>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3 flex items-center justify-between gap-2">
+            ${verTag}
+            <a href="${ghUrl}" target="_blank" rel="noopener noreferrer" class="text-diy-400 hover:text-white transition-colors font-semibold">
+              GitHub ↗
+            </a>
+          </div>
+        `;
+        grid.appendChild(card);
+      }
+    }
+
+    async function loadCatalog() {
+      try {
+        const res = await fetch("./data/diy-apps.json", { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        DIY_APPS = data.apps || [];
+        countAll.textContent = DIY_APPS.length;
+        metricTotal.textContent = DIY_APPS.length;
+        syncStamp.textContent = `synced ${data.generated_at || "recently"}`;
+        render();
+      } catch (err) {
+        syncStamp.textContent = `catalog load error (${err.message}) — run .\\start.ps1 -Sync`;
+        emptyState.classList.remove("hidden");
+      }
+    }
+
+    document.querySelectorAll(".cat-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        activeCat = btn.dataset.cat;
+        document.querySelectorAll(".cat-btn").forEach(b => {
+          b.classList.remove("bg-diy-500", "text-white");
+          b.classList.add("glass-panel", "text-slate-300");
+        });
+        btn.classList.add("bg-diy-500", "text-white");
+        btn.classList.remove("glass-panel", "text-slate-300");
+        render();
+      });
+    });
+
+    searchInput.addEventListener("input", (e) => {
+      searchTerm = e.target.value;
+      render();
+    });
+
+    loadCatalog();
+  </script>
+</body>
+</html>

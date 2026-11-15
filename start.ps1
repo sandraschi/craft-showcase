@@ -1,22 +1,30 @@
 #Requires -Version 5.1
 <#
 .SYNOPSIS
-  Sovereign Craft Suite Showcase launcher: serves interactive landing page & WASM studio on port 11270.
+  Local Craft Suite Showcase launcher: serves interactive landing page & WASM studio on port 11270.
 #>
 param(
     [switch]$Smoke,
     [switch]$Build,
+    [switch]$Sync,
     [int]$Port = 11270
 )
 
 $ErrorActionPreference = "Stop"
 $RepoRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 
+if ($Sync) {
+    & (Join-Path $RepoRoot "scripts\sync-diy-catalog.ps1")
+    exit 0
+}
+
 if ($Smoke -or ($args -contains "--smoke")) {
     $wasmHtml = Join-Path $RepoRoot "web\wasm\index.html"
     $landingHtml = Join-Path $RepoRoot "web\index.html"
-    if ((Test-Path $wasmHtml) -and (Test-Path $landingHtml)) {
-        Write-Host "smoke: ok (craft-showcase web & wasm)" -ForegroundColor Green
+    $diyHtml = Join-Path $RepoRoot "web\diy.html"
+    $diyData = Join-Path $RepoRoot "web\data\diy-apps.json"
+    if ((Test-Path $wasmHtml) -and (Test-Path $landingHtml) -and (Test-Path $diyHtml) -and (Test-Path $diyData)) {
+        Write-Host "smoke: ok (craft-showcase web, diy & wasm)" -ForegroundColor Green
         exit 0
     } else {
         Write-Host "smoke: failed - missing web assets" -ForegroundColor Red
@@ -34,7 +42,7 @@ if ($Build) {
 
 # Start local preview web server
 $webDir = Join-Path $RepoRoot "web"
-Write-Host "Starting Sovereign Craft Suite Showcase at http://localhost:$Port ..." -ForegroundColor Cyan
+Write-Host "Starting Local Craft Suite Showcase at http://localhost:$Port ..." -ForegroundColor Cyan
 Start-Process "http://localhost:$Port"
 
 $pyLauncher = if (Get-Command py -ErrorAction SilentlyContinue) { "py" }
