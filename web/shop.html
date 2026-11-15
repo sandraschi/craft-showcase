@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop Craft Suite — Local-First Commerce, POS &amp; Amazon Cockpit</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            brand: { 400: '#38bdf8', 500: '#0ea5e9', 600: '#0284c7' },
+            shop: { 400: '#fb923c', 500: '#f97316', 600: '#ea580c' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090d16;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .gradient-text-shop {
+      background: linear-gradient(135deg, #fb923c 0%, #f43f5e 50%, #a855f7 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="selection:bg-shop-500 selection:text-white">
+
+  <!-- NAVIGATION BAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-shop-500 to-rose-600 flex items-center justify-center shadow-lg shadow-shop-500/20">
+          <span class="text-white font-extrabold text-xl">🛍️</span>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight">Shop <span class="text-shop-400">Craft Suite</span></span>
+          <span class="hidden sm:inline-block ml-2 text-xs text-slate-400 font-mono">Omnichannel • Pure Rust</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-300">
+        <a href="#shop-apps" class="hover:text-shop-400 transition-colors">3 Channel Apps</a>
+        <a href="#bus-cascade" class="hover:text-shop-400 transition-colors">Event Bus Wiring</a>
+        <a href="./index.html" class="hover:text-brand-400 transition-colors">Back-Office Suite →</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <div class="inline-flex items-center p-1 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-bold">
+          <a href="./index.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">Back-Office</a>
+          <span class="px-3 py-1.5 rounded-lg bg-shop-500 text-white shadow">Shop Craft</span>
+          <a href="./diy.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">DIY Craft Apps</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="relative pt-36 pb-16 overflow-hidden">
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[340px] bg-shop-500/15 blur-[140px] pointer-events-none rounded-full"></div>
+    <div class="max-w-7xl mx-auto px-6 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-shop-400/10 border border-shop-400/30 text-shop-400 font-mono text-xs font-semibold uppercase tracking-wider mb-8">
+        <span class="w-2 h-2 rounded-full bg-shop-400 animate-pulse"></span>
+        Physical POS • D2C Webshop • Amazon Cockpit
+      </div>
+
+      <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.1] mb-6">
+        Sell Everywhere.<br />
+        <span class="gradient-text-shop">Zero SaaS Per-Order Tax.</span>
+      </h1>
+      <p class="max-w-2xl mx-auto text-lg text-slate-300 leading-relaxed mb-10">
+        Three local-first Rust selling-channel apps wired directly into <code class="text-brand-400 font-mono">stockcraft</code>, <code class="text-brand-400 font-mono">billcraft</code>, and <code class="text-brand-400 font-mono">buchcraft</code> via the <code class="text-emerald-400 font-mono">craft-biz</code> event bus.
+      </p>
+    </div>
+  </section>
+
+  <!-- 3 SHOP CRAFT APPS -->
+  <section id="shop-apps" class="max-w-7xl mx-auto px-6 pb-20">
+    <div id="shop-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="col-span-full text-center text-slate-400 font-mono text-sm py-12">Loading Shop Craft apps...</div>
+    </div>
+  </section>
+
+  <!-- EVENT BUS CASCADE -->
+  <section id="bus-cascade" class="max-w-7xl mx-auto px-6 pb-24">
+    <div class="glass-panel rounded-3xl p-8 border border-white/10">
+      <h2 class="text-2xl font-extrabold mb-2">Omnichannel → Back-Office Bus Wiring</h2>
+      <p class="text-sm text-slate-400 mb-6">Every sale across physical counter, webshop, and Amazon emits immutable integer-cent events over <code class="text-emerald-400 font-mono">craft-biz::bus</code>.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 font-mono text-xs">
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10">
+          <div class="text-shop-400 font-bold mb-2">shopcraft (Physical POS)</div>
+          <div class="text-slate-300 space-y-1">
+            <div>→ <code>channel.sale_committed</code> → stockcraft</div>
+            <div>→ <code>channel.return_restocked</code> → stockcraft</div>
+            <div>→ <code>pos.zbon_closed</code> → buchcraft</div>
+          </div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10">
+          <div class="text-brand-400 font-bold mb-2">webshopcraft (D2C Webshop)</div>
+          <div class="text-slate-300 space-y-1">
+            <div>→ <code>channel.stock_reserved</code> → stockcraft</div>
+            <div>→ <code>channel.sale_committed</code> → stockcraft</div>
+            <div>→ <code>order.paid</code> → billcraft &amp; buchcraft</div>
+          </div>
+        </div>
+        <div class="p-4 rounded-2xl bg-slate-900/90 border border-white/10">
+          <div class="text-purple-400 font-bold mb-2">amazonshopcraft (SP-API)</div>
+          <div class="text-slate-300 space-y-1">
+            <div>→ <code>channel.sale_committed</code> → stockcraft</div>
+            <div>→ <code>amazon.invoice_requested</code> → billcraft</div>
+            <div>→ net margin &amp; Buy Box guardrails</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (async () => {
+      const grid = document.getElementById("shop-grid");
+      try {
+        const res = await fetch("./data/all-apps.json", { cache: "no-store" });
+        const data = await res.json();
+        const ids = new Set(["webshopcraft", "shopcraft", "amazonshopcraft"]);
+        const apps = (data.apps || []).filter((a) => ids.has(a.id));
+        if (apps.length === 0) {
+          grid.innerHTML = `<div class="col-span-full text-center text-slate-400">No Shop Craft apps found in catalog.</div>`;
+          return;
+        }
+        grid.innerHTML = apps.map((app) => `
+          <a href="./app.html?id=${encodeURIComponent(app.id)}" class="glass-panel rounded-2xl p-6 border border-white/10 hover:border-shop-400/50 transition-all flex flex-col justify-between group">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <span class="text-3xl">${app.icon || "🛍️"}</span>
+                <span class="text-xs font-mono font-bold px-2.5 py-1 rounded-full bg-shop-400/10 text-shop-400">${app.badge || "Craft App"}</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-white group-hover:text-shop-400 transition-colors mb-1">${app.name}</h3>
+              ${app.replaces ? `<p class="text-xs font-mono text-slate-400 mb-3">Replaces: ${app.replaces}</p>` : ""}
+              <p class="text-sm text-slate-300 leading-relaxed">${app.desc}</p>
+            </div>
+            <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+              <span>${app.version ? "v" + app.version : "v0.1.0"} • Pure Rust</span>
+              <span class="text-shop-400 font-bold group-hover:translate-x-1 transition-transform">Details →</span>
+            </div>
+          </a>
+        `).join("");
+      } catch (e) {
+        grid.innerHTML = `<div class="col-span-full text-center text-rose-400 font-mono text-sm">Failed to load catalog: ${e}</div>`;
+      }
+    })();
+  </script>
+</body>
+</html>
