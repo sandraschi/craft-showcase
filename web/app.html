@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Details — Local Craft Showcase</title>
+  <meta name="description" content="Detailed overview, capabilities, and local-first architecture for a Craft Suite application." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            brand: { 400: '#38bdf8', 500: '#0284c7' },
+            diy: { 400: '#a78bfa', 500: '#8b5cf6' },
+            surface: { dark: '#090d16' }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #090d16;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-500 selection:text-white">
+
+  <!-- NAVIGATION BAR -->
+  <header class="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between gap-4">
+      <a id="back-link" href="./index.html" class="flex items-center gap-3 group">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-400 to-indigo-600 flex items-center justify-center shadow-lg">
+          <span class="text-white font-extrabold text-xl">⚡</span>
+        </div>
+        <div>
+          <span class="font-extrabold text-lg tracking-tight group-hover:text-brand-400 transition-colors">Local <span class="text-brand-400">Craft Showcase</span></span>
+          <span class="hidden sm:inline-block ml-2 text-xs text-slate-400 font-mono">App Details</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-3">
+        <div class="inline-flex items-center p-1 rounded-xl bg-slate-900/90 border border-white/10 text-xs font-bold">
+          <a href="./index.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">Back-Office</a>
+          <a href="./diy.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">DIY Craft Apps</a>
+          <a href="./local.html" class="px-3 py-1.5 rounded-lg text-slate-300 hover:text-white transition-colors">Why Local?</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-32 pb-20 max-w-5xl mx-auto px-6">
+    <div id="loading" class="glass-panel p-12 rounded-2xl text-center text-slate-300 font-mono text-sm">
+      Loading app details...
+    </div>
+
+    <div id="not-found" class="hidden glass-panel p-12 rounded-2xl text-center">
+      <h1 class="text-2xl font-extrabold mb-2">App not found</h1>
+      <p class="text-slate-400 mb-6 text-sm">No matching app was found in the catalog.</p>
+      <div class="flex justify-center gap-4">
+        <a href="./index.html" class="px-5 py-2.5 rounded-xl bg-brand-500 text-white font-bold text-sm">Back-Office Suite</a>
+        <a href="./diy.html" class="px-5 py-2.5 rounded-xl bg-diy-500 text-white font-bold text-sm">DIY Craft Fleet</a>
+      </div>
+    </div>
+
+    <article id="app-detail" class="hidden space-y-8">
+      <!-- Breadcrumb -->
+      <div class="flex items-center justify-between text-xs font-mono text-slate-400">
+        <div>
+          <a id="crumb-suite" href="./index.html" class="text-brand-400 hover:underline">Back-Office Suite</a>
+          <span class="mx-2">/</span>
+          <span id="crumb-name" class="text-slate-200">App</span>
+        </div>
+        <span id="app-version" class="text-emerald-400"></span>
+      </div>
+
+      <!-- Hero Card -->
+      <div class="glass-panel p-8 rounded-3xl border border-white/10">
+        <div class="flex flex-wrap items-start justify-between gap-6">
+          <div class="flex items-start gap-5">
+            <div id="app-icon" class="w-16 h-16 rounded-2xl bg-slate-900 border border-white/10 flex items-center justify-center text-4xl shrink-0"></div>
+            <div>
+              <div class="flex flex-wrap items-center gap-2 mb-2">
+                <span id="app-suite-pill" class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-brand-400/10 text-brand-400"></span>
+                <span id="app-badge" class="text-xs font-mono font-bold px-2.5 py-1 rounded bg-emerald-400/10 text-emerald-400"></span>
+              </div>
+              <h1 id="app-name" class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white"></h1>
+              <p id="app-replaces" class="text-sm font-mono text-brand-400 mt-2 hidden"></p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3">
+            <a id="app-github" href="#" target="_blank" rel="noopener noreferrer"
+              class="px-5 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm transition-colors border border-white/10">
+              View on GitHub ↗
+            </a>
+            <a id="app-wasm-btn" href="./wasm/index.html" target="_blank"
+              class="hidden px-5 py-2.5 rounded-xl bg-brand-500 hover:bg-brand-400 text-white font-bold text-sm transition-colors shadow-lg shadow-brand-500/20">
+              Try in WASM Sandbox ↗
+            </a>
+          </div>
+        </div>
+
+        <p id="app-desc" class="text-lg text-slate-200 leading-relaxed mt-6"></p>
+      </div>
+
+      <!-- Capabilities & Local-First Grid -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="glass-panel p-7 rounded-2xl">
+          <h2 class="text-lg font-bold text-white mb-4">Key Capabilities</h2>
+          <ul id="app-highlights" class="space-y-3 text-sm text-slate-300"></ul>
+        </div>
+
+        <div class="glass-panel p-7 rounded-2xl space-y-4">
+          <h2 class="text-lg font-bold text-white">How It Runs</h2>
+          <p class="text-sm text-slate-300 leading-relaxed">
+            Built in pure Rust with a local SQLite / file store, a scriptable CLI, an MCP server for AI assistants, and a native <code class="font-mono text-brand-400">egui</code> desktop window.
+          </p>
+          <div class="text-xs font-mono text-slate-400 space-y-2 border-t border-white/10 pt-4">
+            <div>Repository: <span id="app-repo" class="text-slate-200"></span></div>
+            <div>Data model: <span class="text-emerald-400">Local-first • Offline-ready • Optional airgap</span></div>
+          </div>
+          <div id="install-box" class="hidden border-t border-white/10 pt-4">
+            <div class="text-xs font-mono text-slate-400 mb-2">Windows Installer:</div>
+            <code class="block text-xs font-mono bg-slate-950 border border-white/10 rounded-lg p-3 text-emerald-400 overflow-x-auto">
+              powershell -NoProfile -ExecutionPolicy Bypass -File scripts\install-craft.ps1
+            </code>
+          </div>
+          <div class="pt-1">
+            <a href="./local.html" class="text-xs font-mono text-brand-400 hover:underline">
+              What do Local, Offline &amp; Airgapped mean? →
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Prev / Next Navigation -->
+      <div class="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-white/10">
+        <a id="prev-app" href="#" class="glass-panel px-5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:border-brand-400/50 transition-all"></a>
+        <a id="all-apps-btn" href="./index.html" class="text-xs font-mono text-slate-400 hover:text-white">← Back to Showcase</a>
+        <a id="next-app" href="#" class="glass-panel px-5 py-3 rounded-xl text-sm font-semibold text-slate-300 hover:text-white hover:border-brand-400/50 transition-all"></a>
+      </div>
+    </article>
+  </main>
+
+  <script>
+    const CAT_LABELS = {
+      backoffice: "Back-Office Suite",
+      ai: "AI & Agents",
+      creative: "Creative & Media",
+      writing: "Writing & Knowledge",
+      hardware: "Hardware, CAD & GIS",
+      infra: "Data & Fleet Infra"
+    };
+    const WASM_TABS = new Set(["helmcraft", "billcraft", "spendcraft", "hirecraft", "taskcraft"]);
+
+    async function init() {
+      const params = new URLSearchParams(window.location.search);
+      const id = (params.get("id") || "").trim().toLowerCase();
+
+      const loading = document.getElementById("loading");
+      const notFound = document.getElementById("not-found");
+      const detail = document.getElementById("app-detail");
+
+      try {
+        const res = await fetch("./data/all-apps.json", { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        const apps = data.apps || [];
+        const idx = apps.findIndex(a => a.id.toLowerCase() === id);
+
+        loading.classList.add("hidden");
+        if (idx === -1) {
+          notFound.classList.remove("hidden");
+          return;
+        }
+
+        const app = apps[idx];
+        const isBo = app.suite === "backoffice";
+        const suiteUrl = isBo ? "./index.html#suite-apps" : "./diy.html";
+        const suiteLabel = isBo ? "Back-Office Suite" : "DIY Craft Fleet";
+
+        document.title = `${app.name} — Local Craft Showcase`;
+        document.getElementById("back-link").href = isBo ? "./index.html" : "./diy.html";
+        document.getElementById("crumb-suite").href = suiteUrl;
+        document.getElementById("crumb-suite").textContent = suiteLabel;
+        document.getElementById("crumb-name").textContent = app.name;
+        document.getElementById("all-apps-btn").href = suiteUrl;
+        document.getElementById("all-apps-btn").textContent = `← All ${suiteLabel} Apps`;
+
+        document.getElementById("app-icon").textContent = app.icon || "🛠️";
+        document.getElementById("app-name").textContent = app.name;
+        document.getElementById("app-suite-pill").textContent = CAT_LABELS[app.cat] || suiteLabel;
+        document.getElementById("app-badge").textContent = app.badge || "Local-First";
+        document.getElementById("app-version").textContent = app.version || "pure Rust";
+        document.getElementById("app-desc").textContent = app.desc;
+        document.getElementById("app-github").href = app.github || `https://github.com/sandraschi/${app.repo}`;
+        document.getElementById("app-repo").textContent = `sandraschi/${app.repo}`;
+
+        if (app.replaces) {
+          const rep = document.getElementById("app-replaces");
+          rep.textContent = `Replaces ${app.replaces}`;
+          rep.classList.remove("hidden");
+        }
+        if (WASM_TABS.has(app.id)) {
+          document.getElementById("app-wasm-btn").classList.remove("hidden");
+        }
+        if (app.installer) {
+          document.getElementById("install-box").classList.remove("hidden");
+        }
+
+        const ul = document.getElementById("app-highlights");
+        const items = (app.highlights && app.highlights.length > 0)
+          ? app.highlights
+          : [
+              app.desc,
+              "Runs locally on your machine with zero required cloud accounts or per-seat subscriptions.",
+              "Exposes all actions via both a native desktop UI and a scriptable CLI / MCP interface."
+            ];
+        for (const item of items) {
+          const li = document.createElement("li");
+          li.className = "flex items-start gap-2.5";
+          li.innerHTML = `<span class="text-emerald-400 mt-0.5">✓</span><span>${item}</span>`;
+          ul.appendChild(li);
+        }
+
+        // Prev / Next within same suite
+        const sameSuite = apps.filter(a => a.suite === app.suite);
+        const sIdx = sameSuite.findIndex(a => a.id === app.id);
+        const prev = sameSuite[(sIdx - 1 + sameSuite.length) % sameSuite.length];
+        const next = sameSuite[(sIdx + 1) % sameSuite.length];
+
+        const prevEl = document.getElementById("prev-app");
+        prevEl.href = `./app.html?id=${encodeURIComponent(prev.id)}`;
+        prevEl.textContent = `← ${prev.icon} ${prev.name}`;
+
+        const nextEl = document.getElementById("next-app");
+        nextEl.href = `./app.html?id=${encodeURIComponent(next.id)}`;
+        nextEl.textContent = `${next.icon} ${next.name} →`;
+
+        detail.classList.remove("hidden");
+      } catch (err) {
+        loading.textContent = `Error loading catalog: ${err.message}`;
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

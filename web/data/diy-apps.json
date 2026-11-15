@@ -1,8 +1,9 @@
 {
-    "generated_at":  "2026-11-15T11:06:10+01:00",
+    "generated_at":  "2026-11-15T15:14:39+01:00",
     "count":  33,
     "apps":  [
                  {
+                     "id":  "aicraft",
                      "name":  "AICraft",
                      "repo":  "aicraft",
                      "cat":  "ai",
@@ -13,6 +14,7 @@
                      "desc":  "Local AI model router and token-cost dashboard for managing local LLMs and API usage in one place."
                  },
                  {
+                     "id":  "appcraft",
                      "name":  "AppCraft",
                      "repo":  "appcraft",
                      "cat":  "infra",
@@ -23,6 +25,7 @@
                      "desc":  "Code generator that scaffolds new local-first Rust desktop and web apps from structured domain blueprints."
                  },
                  {
+                     "id":  "bookcraft",
                      "name":  "BookCraft",
                      "repo":  "bookcraft",
                      "cat":  "writing",
@@ -33,6 +36,7 @@
                      "desc":  "Fast Calibre e-book library manager in pure Rust: search, inspect, edit metadata, convert, and import books."
                  },
                  {
+                     "id":  "celcraft",
                      "name":  "CelCraft",
                      "repo":  "celcraft",
                      "cat":  "creative",
@@ -43,6 +47,7 @@
                      "desc":  "Classic hand-drawn 2D animation and ink-and-paint studio in pure Rust — a modern OpenToonz replacement."
                  },
                  {
+                     "id":  "codercraft",
                      "name":  "CoderCraft",
                      "repo":  "codercraft",
                      "cat":  "ai",
@@ -53,6 +58,7 @@
                      "desc":  "Fast, native Rust coding IDE with built-in AI agent tools — ~35 MB RAM with zero Electron overhead."
                  },
                  {
+                     "id":  "craftcraft",
                      "name":  "CraftCraft",
                      "repo":  "craftcraft",
                      "cat":  "infra",
@@ -63,6 +69,7 @@
                      "desc":  "Registry and tracker monitoring all local Craft apps alongside upstream ArtCraft releases."
                  },
                  {
+                     "id":  "craft-deck",
                      "name":  "craft-deck",
                      "repo":  "craft-deck",
                      "cat":  "infra",
@@ -73,6 +80,7 @@
                      "desc":  "Desktop launcher to install, update, and open all Craft apps from one place."
                  },
                  {
+                     "id":  "databasecraft",
                      "name":  "DatabaseCraft",
                      "repo":  "databasecraft",
                      "cat":  "infra",
@@ -83,6 +91,7 @@
                      "desc":  "Pure-Rust relational database and schema studio for managing structured app data locally."
                  },
                  {
+                     "id":  "democraft-mcp",
                      "name":  "democraft-mcp",
                      "repo":  "democraft-mcp",
                      "cat":  "infra",
@@ -93,6 +102,7 @@
                      "desc":  "Automated demo runner and screenshot harness for testing ArtCraft applications."
                  },
                  {
+                     "id":  "devcraft",
                      "name":  "DevCraft",
                      "repo":  "devcraft",
                      "cat":  "infra",
@@ -103,6 +113,7 @@
                      "desc":  "Local developer cockpit for managing repos, builds, and AI coding sessions across IDEs."
                  },
                  {
+                     "id":  "djcraft",
                      "name":  "DJCraft",
                      "repo":  "djcraft",
                      "cat":  "creative",
@@ -113,6 +124,7 @@
                      "desc":  "4-deck DJ mixing studio with real-time stem isolation and harmonic transitions, running 100% locally."
                  },
                  {
+                     "id":  "gamecraft",
                      "name":  "GameCraft",
                      "repo":  "gamecraft",
                      "cat":  "creative",
@@ -123,6 +135,7 @@
                      "desc":  "Describe a game in one sentence and generate a playable, editable Godot 4 project on your machine."
                  },
                  {
+                     "id":  "giscraft",
                      "name":  "giscraft",
                      "repo":  "giscraft",
                      "cat":  "hardware",
@@ -133,6 +146,7 @@
                      "desc":  "Desktop GIS mapping tool over OpenStreetMap with a familiar QGIS-style layout and a modern Rust core."
                  },
                  {
+                     "id":  "homecraft",
                      "name":  "HomeCraft",
                      "repo":  "homecraft",
                      "cat":  "hardware",
@@ -143,6 +157,7 @@
                      "desc":  "Local smart-home controller and lightweight Home Assistant alternative in pure Rust."
                  },
                  {
+                     "id":  "lenscraft",
                      "name":  "lenscraft",
                      "repo":  "lenscraft",
                      "cat":  "ai",
@@ -153,6 +168,7 @@
                      "desc":  "Point a camera at a painting, sculpture, or building and get ranked identifications with evidence from a local vision model."
                  },
                  {
+                     "id":  "lookcraft",
                      "name":  "LookCraft",
                      "repo":  "lookcraft",
                      "cat":  "writing",
@@ -163,6 +179,7 @@
                      "desc":  "Local-first email engine with offline EML parsing, Maildir storage, full-text search, and IMAP/SMTP support."
                  },
                  {
+                     "id":  "makercraft",
                      "name":  "MakerCraft",
                      "repo":  "makercraft",
                      "cat":  "hardware",
@@ -173,6 +190,7 @@
                      "desc":  "Workshop control bench for 3D printers, CNC routers, and hardware protocol debugging."
                  },
                  {
+                     "id":  "modcraft",
                      "name":  "ModCraft",
                      "repo":  "modcraft",
                      "cat":  "hardware",
@@ -183,6 +201,7 @@
                      "desc":  "Parametric 3D CAD and solid modeling tool with automated Bill of Materials (BOM) generation."
                  },
                  {
+                     "id":  "moneycraft",
                      "name":  "MoneyCraft",
                      "repo":  "moneycraft",
                      "cat":  "infra",
@@ -193,6 +212,7 @@
                      "desc":  "Offline financial research and time-series charting terminal for personal quantitative analysis."
                  },
                  {
+                     "id":  "musiccraft",
                      "name":  "MusicCraft",
                      "repo":  "musiccraft",
                      "cat":  "creative",
@@ -203,6 +223,7 @@
                      "desc":  "Music production workstation with multitrack arrangement, virtual vocal synthesis, 4-band stem separation, and offline mix export."
                  },
                  {
+                     "id":  "patterncraft",
                      "name":  "PatternCraft",
                      "repo":  "patterncraft",
                      "cat":  "hardware",
@@ -213,6 +234,7 @@
                      "desc":  "Converts vector artwork into machine-ready paths for pen plotters and CNC routers."
                  },
                  {
+                     "id":  "robotcraft",
                      "name":  "RobotCraft",
                      "repo":  "robotcraft",
                      "cat":  "hardware",
@@ -223,6 +245,7 @@
                      "desc":  "Robotics workstation for hardware telemetry, kinematics solvers, URDF models, Gazebo bridges, and live tele-op."
                  },
                  {
+                     "id":  "rsicraft",
                      "name":  "rsicraft",
                      "repo":  "rsicraft",
                      "cat":  "ai",
@@ -233,6 +256,7 @@
                      "desc":  "Self-improving coding loop where a local LLM writes, tests, and refines small programs on your own GPU."
                  },
                  {
+                     "id":  "smallvideocraft",
                      "name":  "SmallVideoCraft (alpha",
                      "repo":  "smallvideocraft",
                      "cat":  "creative",
@@ -243,6 +267,7 @@
                      "desc":  "Planned pure-Rust video generator companion to the ittybittyvideos script-to-video pipeline."
                  },
                  {
+                     "id":  "soundcraft",
                      "name":  "soundcraft",
                      "repo":  "soundcraft",
                      "cat":  "creative",
@@ -253,6 +278,7 @@
                      "desc":  "Multitrack digital audio workstation in pure Rust with mixer, plugins, MIDI, and scriptable CLI."
                  },
                  {
+                     "id":  "speechcraft",
                      "name":  "SpeechCraft",
                      "repo":  "speechcraft",
                      "cat":  "ai",
@@ -263,6 +289,7 @@
                      "desc":  "Local voice studio with wake-word detection, offline speech recognition, and audio mastering."
                  },
                  {
+                     "id":  "splatcraft",
                      "name":  "splatcraft",
                      "repo":  "splatcraft",
                      "cat":  "creative",
@@ -273,6 +300,7 @@
                      "desc":  "Pure-Rust viewer and toolkit for 3D Gaussian splats."
                  },
                  {
+                     "id":  "sportscraft",
                      "name":  "SportsCraft",
                      "repo":  "sportscraft",
                      "cat":  "writing",
@@ -283,6 +311,7 @@
                      "desc":  "Local sports companion for European football tables, fixtures, match predictions, and personal training logs."
                  },
                  {
+                     "id":  "studiocraft",
                      "name":  "StudioCraft",
                      "repo":  "studiocraft",
                      "cat":  "creative",
@@ -293,6 +322,7 @@
                      "desc":  "Shared project format (.studiocraft) and universal canvas host connecting the creative Craft apps."
                  },
                  {
+                     "id":  "travelcraft",
                      "name":  "TravelCraft (Baedeker 2030)",
                      "repo":  "travelcraft",
                      "cat":  "writing",
@@ -303,6 +333,7 @@
                      "desc":  "Offline travel guide and map studio (Austria \u0026 Japan) inspired by classic Baedeker handbooks."
                  },
                  {
+                     "id":  "vmcraft",
                      "name":  "vmcraft",
                      "repo":  "vmcraft",
                      "cat":  "infra",
@@ -313,6 +344,7 @@
                      "desc":  "Local VM manager for VirtualBox, Hyper-V, and Firecracker with isolated sandbox testing."
                  },
                  {
+                     "id":  "wincraft",
                      "name":  "WinCraft",
                      "repo":  "wincraft",
                      "cat":  "infra",
@@ -323,6 +355,7 @@
                      "desc":  "Windows system utility for memory cleanup, file-lock inspection, fast file ops, and service management."
                  },
                  {
+                     "id":  "writercraft",
                      "name":  "WriterCraft \u0026 ScholarCraft",
                      "repo":  "writercraft",
                      "cat":  "writing",

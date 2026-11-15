@@ -765,23 +765,51 @@
     // Initialize on load
     updateROI(50);
 
-    // Attach verified GitHub repo links to every Back-Office card
+    // Attach click-through detail pages and verified GitHub repo links to every Back-Office card
     document.querySelectorAll('#suite-apps .glass-panel').forEach(card => {
       const h3 = card.querySelector('h3');
       const footer = card.querySelector('.border-t');
       if (!h3 || !footer) return;
       const slug = h3.textContent.trim().toLowerCase();
+      const detailUrl = `./app.html?id=${encodeURIComponent(slug)}`;
+
+      card.classList.add('cursor-pointer');
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        window.location.href = detailUrl;
+      });
+
+      const titleText = h3.textContent;
+      h3.textContent = '';
+      const titleLink = document.createElement('a');
+      titleLink.href = detailUrl;
+      titleLink.className = 'hover:underline';
+      titleLink.textContent = titleText;
+      h3.appendChild(titleLink);
+
       footer.classList.add('flex', 'items-center', 'justify-between', 'gap-2');
       const busWrap = document.createElement('span');
       while (footer.firstChild) busWrap.appendChild(footer.firstChild);
+
+      const linksWrap = document.createElement('span');
+      linksWrap.className = 'flex items-center gap-3 shrink-0';
+
+      const detailLink = document.createElement('a');
+      detailLink.href = detailUrl;
+      detailLink.className = 'text-emerald-400 hover:text-white transition-colors font-semibold';
+      detailLink.textContent = 'Details →';
+
       const link = document.createElement('a');
       link.href = `https://github.com/sandraschi/${slug}`;
       link.target = '_blank';
       link.rel = 'noopener noreferrer';
-      link.className = 'text-brand-400 hover:text-white transition-colors font-semibold shrink-0';
+      link.className = 'text-brand-400 hover:text-white transition-colors font-semibold';
       link.textContent = 'GitHub ↗';
+
+      linksWrap.appendChild(detailLink);
+      linksWrap.appendChild(link);
       footer.appendChild(busWrap);
-      footer.appendChild(link);
+      footer.appendChild(linksWrap);
     });
   </script>
 </body>

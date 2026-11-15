@@ -23,8 +23,10 @@ if ($Smoke -or ($args -contains "--smoke")) {
     $landingHtml = Join-Path $RepoRoot "web\index.html"
     $diyHtml = Join-Path $RepoRoot "web\diy.html"
     $localHtml = Join-Path $RepoRoot "web\local.html"
+    $appHtml = Join-Path $RepoRoot "web\app.html"
     $diyData = Join-Path $RepoRoot "web\data\diy-apps.json"
-    if ((Test-Path $wasmHtml) -and (Test-Path $landingHtml) -and (Test-Path $diyHtml) -and (Test-Path $localHtml) -and (Test-Path $diyData)) {
+    $allData = Join-Path $RepoRoot "web\data\all-apps.json"
+    if ((Test-Path $wasmHtml) -and (Test-Path $landingHtml) -and (Test-Path $diyHtml) -and (Test-Path $localHtml) -and (Test-Path $appHtml) -and (Test-Path $diyData) -and (Test-Path $allData)) {
         Write-Host "smoke: ok (craft-showcase web, diy & wasm)" -ForegroundColor Green
         exit 0
     } else {
@@ -35,7 +37,7 @@ if ($Smoke -or ($args -contains "--smoke")) {
 
 if ($Build) {
     Set-Location (Join-Path $RepoRoot "crates\craft-showcase-wasm")
-    & "$env:USERPROFILE\.cargo\bin\trunk.exe" build --release
+    & "$env:USERPROFILE\.cargo\bin\trunk.exe" build --release --public-url ./
     Copy-Item -Path "dist\*" -Destination (Join-Path $RepoRoot "web\wasm") -Recurse -Force
     Write-Host "Build complete: WASM copied to web\wasm" -ForegroundColor Green
     exit 0

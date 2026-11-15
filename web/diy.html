@@ -243,24 +243,36 @@
 
       for (const app of filtered) {
         const card = document.createElement("div");
-        card.className = "glass-panel p-6 rounded-2xl hover:border-diy-400/50 transition-all group flex flex-col justify-between";
+        card.className = "glass-panel p-6 rounded-2xl hover:border-diy-400/50 transition-all group flex flex-col justify-between cursor-pointer";
+        const detailUrl = `./app.html?id=${encodeURIComponent(app.id || app.repo)}`;
         const verTag = app.version ? `<span class="text-slate-400">${app.version}</span>` : `<span class="text-emerald-400">local-first</span>`;
         const ghUrl = app.github || `https://github.com/sandraschi/${app.repo}`;
+        card.addEventListener("click", (e) => {
+          if (e.target.closest("a")) return;
+          window.location.href = detailUrl;
+        });
         card.innerHTML = `
           <div>
             <div class="flex items-center justify-between mb-3">
               <span class="text-2xl">${app.icon}</span>
               <span class="text-xs font-bold font-mono text-diy-400 bg-diy-400/10 px-2.5 py-1 rounded">${app.badge}</span>
             </div>
-            <h3 class="text-xl font-bold text-white group-hover:text-diy-400 transition-colors">${app.name}</h3>
+            <h3 class="text-xl font-bold text-white group-hover:text-diy-400 transition-colors">
+              <a href="${detailUrl}" class="hover:underline">${app.name}</a>
+            </h3>
             <p class="text-xs text-slate-400 font-mono mb-3">${CAT_LABELS[app.cat] || "Fleet App"} • <span class="text-slate-300">${app.repo}/</span></p>
             <p class="text-sm text-slate-300 leading-relaxed mb-4">${app.desc}</p>
           </div>
           <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3 flex items-center justify-between gap-2">
             ${verTag}
-            <a href="${ghUrl}" target="_blank" rel="noopener noreferrer" class="text-diy-400 hover:text-white transition-colors font-semibold">
-              GitHub ↗
-            </a>
+            <div class="flex items-center gap-3">
+              <a href="${detailUrl}" class="text-emerald-400 hover:text-white transition-colors font-semibold">
+                Details →
+              </a>
+              <a href="${ghUrl}" target="_blank" rel="noopener noreferrer" class="text-diy-400 hover:text-white transition-colors font-semibold">
+                GitHub ↗
+              </a>
+            </div>
           </div>
         `;
         grid.appendChild(card);

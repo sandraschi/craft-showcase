@@ -1,7 +1,7 @@
 ﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-  Scans the local *craft* fleet and regenerates web/data/diy-apps.json for the DIY Craft Fleet Showcase.
+  Scans the local *craft* fleet and regenerates web/data/diy-apps.json and web/data/all-apps.json.
 #>
 param(
     [string]$FleetRoot
@@ -13,11 +13,21 @@ if (-not $FleetRoot) {
     $FleetRoot = Split-Path -Parent $RepoRoot
 }
 
-$BackofficeRepos = @(
-    'assetcraft', 'billcraft', 'buchcraft', 'contractcraft', 'deskcraft',
-    'formcraft', 'gaincraft', 'helmcraft', 'hirecraft', 'spendcraft',
-    'taskcraft', 'teamcraft', 'wikicraft'
-)
+$BackofficeMeta = @{
+    'billcraft'     = @{ name = 'BillCraft';     icon = '🧾'; badge = 'ebInterface 6.1'; replaces = 'Stripe Billing & Chargebee';        desc = 'Austrian-compliant invoicing, recurring subscriptions, PDF/A-1b archiving, ebInterface 6.1 XML export, and SEPA Direct Debit (pain.008) batch generation.' }
+    'spendcraft'    = @{ name = 'SpendCraft';    icon = '💳'; badge = '§26 EStG';        replaces = 'Expensify, Pleo & Circula';          desc = 'Travel & expense engine calculating Austrian §26 EStG Kilometergeld (€0.42/km), domestic & international Tagesdiäten, and SEPA pain.001 payouts.' }
+    'hirecraft'     = @{ name = 'HireCraft';     icon = '🎯'; badge = 'Blind ATS';       replaces = 'Greenhouse, Lever & Ashby';          desc = 'Applicant tracking system with anonymized blind candidate scorecards, weighted rubric scoring, and one-click multi-app onboarding cascades.' }
+    'helmcraft'     = @{ name = 'HelmCraft';     icon = '🧭'; badge = 'CFO Cockpit';     replaces = 'Geckoboard & Baremetrics';           desc = 'Executive telemetry radar aggregating cross-app SQLite ledgers, live cash runway projections, burn rate charts, and printable board briefings.' }
+    'taskcraft'     = @{ name = 'TaskCraft';     icon = '📋'; badge = 'Kanban + Git';    replaces = 'Jira Enterprise & Linear';           desc = 'Local-first agile sprint board and issue tracker featuring automated Git commit closing (`Closes #ID`) and cross-app escalation intake.' }
+    'deskcraft'     = @{ name = 'DeskCraft';     icon = '🎧'; badge = 'Maildir SLA';     replaces = 'Zendesk Suite Enterprise';           desc = 'Customer support desk with offline .eml Maildir archiving, SQLite FTS5 instant search, SLA breach timers, and negative sentiment alerts.' }
+    'contractcraft' = @{ name = 'ContractCraft'; icon = '📜'; badge = 'Ed25519 Sealing'; replaces = 'Ironclad & DocuSign CLM';            desc = 'Contract lifecycle pipeline with cryptographic Ed25519 tamper-evident seals, automated clause risk scanning, and Austrian Kündigungsfrist notice calculators.' }
+    'gaincraft'     = @{ name = 'GainCraft';     icon = '📊'; badge = 'Customer 360';    replaces = 'Gainsight CS & ChurnZero';           desc = 'Customer success cockpit evaluating account health bands (Green / Yellow / Red), tracking NPS sentiment decay, and managing triage Call-to-Actions.' }
+    'teamcraft'     = @{ name = 'TeamCraft';     icon = '⏱️'; badge = 'AZG 38.5h';       replaces = 'Personio & Clockodo';                desc = 'Workforce attendance workstation enforcing Austrian Arbeitszeitgesetz (AZG): 11h daily rest periods, max 10h/day, 50h weekly caps, and leave entitlements.' }
+    'assetcraft'    = @{ name = 'AssetCraft';    icon = '💻'; badge = '§7 EStG AfA';     replaces = 'Snipe-IT & Oomnitza';                desc = 'IT asset registry calculating Austrian linear depreciation (AfA §7 EStG), Halbjahres-AfA, GWG write-offs, and printable QR asset inventory tags.' }
+    'formcraft'     = @{ name = 'FormCraft';     icon = '📝'; badge = 'NPS Detractors';  replaces = 'Typeform & Delighted';               desc = 'Local-first survey intake engine with automated Net Promoter Score (NPS) rollups and real-time detractor event routing directly into Customer Success.' }
+    'wikicraft'     = @{ name = 'WikiCraft';     icon = '📚'; badge = 'FTS5 & ADRs';     replaces = 'Notion Plus & Confluence';           desc = 'Markdown documentation hub with SQLite FTS5 full-text snippet queries, wiki-link backlink extraction, and formal Architecture Decision Record state machines.' }
+    'buchcraft'     = @{ name = 'BuchCraft';     icon = '📒'; badge = 'EKR & U30';       replaces = 'BMD NTCS, RZL, DATEV & sevDesk';     desc = 'Austrian double-entry bookkeeping with EKR chart, integer-cent balanced entries, immutable SQLite triggers with linked Storno, VAT keys (U20/U10/V20/IGE20), Saldenliste, and U30 Kennzahlen pre-fill.' }
+}
 
 $ExcludeRepos = @(
     'craft-showcase', 'craft-biz', 'craft-ai', 'craft-sandbox-vbox',
@@ -25,8 +35,7 @@ $ExcludeRepos = @(
     'codercraft test', 'gamecraft-cli-wt', 'on-metacraft'
 )
 
-# Curated category, icon, badge, and plain-English description per repo; new repos fall back to README.md.
-$Meta = @{
+$DiyMeta = @{
     'aicraft'         = @{ cat = 'ai';       icon = '🧠'; badge = 'AI Ops';         desc = 'Local AI model router and token-cost dashboard for managing local LLMs and API usage in one place.' }
     'codercraft'      = @{ cat = 'ai';       icon = '💻'; badge = 'Port 14128';     desc = 'Fast, native Rust coding IDE with built-in AI agent tools — ~35 MB RAM with zero Electron overhead.' }
     'rsicraft'        = @{ cat = 'ai';       icon = '🔁'; badge = 'Local RSI';      desc = 'Self-improving coding loop where a local LLM writes, tests, and refines small programs on your own GPU.' }
@@ -96,17 +105,18 @@ function Get-RepoVersion {
     return ""
 }
 
-function Get-ReadmeSummary {
+function Get-ReadmeDetails {
     param([string]$Dir, [string]$FallbackName)
     $readme = Join-Path $Dir "README.md"
     $title = $FallbackName
     $desc = ""
+    $highlights = @()
 
     if (-not (Test-Path $readme)) {
-        return @{ name = $title; desc = "Local-first pure-Rust desktop and CLI app." }
+        return @{ name = $title; desc = "Local-first pure-Rust desktop and CLI app."; highlights = @() }
     }
 
-    $lines = Get-Content $readme -TotalCount 50 -Encoding UTF8
+    $lines = Get-Content $readme -TotalCount 110 -Encoding UTF8
     $inCode = $false
     foreach ($raw in $lines) {
         $line = $raw.Trim()
@@ -119,49 +129,76 @@ function Get-ReadmeSummary {
                 $rawTitle = $Matches[1]
             }
             $cleaned = ($rawTitle -replace '[^\x20-\x7E]', '').Trim()
-            if ($cleaned) {
-                $title = $cleaned
+            if ($cleaned) { $title = $cleaned }
+            continue
+        }
+
+        if ($line -match '^(##|!\[|<|Tell Cursor|Installs the Windows app|powershell|\[!\[|\|---)') { continue }
+
+        # Collect bullet points or table feature rows as highlights
+        if ($line -match '^[-*]\s+(.+)$' -and $highlights.Count -lt 6) {
+            $b = ($Matches[1] -replace '\[([^\]]+)\]\([^\)]+\)', '$1' -replace '[\*`]', '' -replace '\b[Ss]overeign\b', 'local-first').Trim()
+            if ($b.Length -ge 15 -and $b -notmatch '^How to use|^What it is|^Every MCP|^Changes:') {
+                if ($b.Length -gt 180) { $b = $b.Substring(0, 177).TrimEnd() + "..." }
+                $highlights += $b
             }
             continue
         }
 
-        if ($line -match '^(##|!\[|<|Tell Cursor|Installs the Windows app|powershell|\[!\[)') { continue }
-
-        $plain = $line -replace '\[([^\]]+)\]\([^\)]+\)', '$1'
-        $plain = $plain -replace '[\*`>]', ''
-        $plain = $plain -replace '\b[Ss]overeign\b', 'local-first'
+        $plain = $line -replace '\[([^\]]+)\]\([^\)]+\)', '$1' -replace '[\*`>]', '' -replace '\b[Ss]overeign\b', 'local-first'
         $plain = $plain.Trim()
-        if ($plain.Length -ge 20) {
+        if (-not $desc -and $plain.Length -ge 20 -and $plain -notmatch '^\|') {
             $desc = $plain
-            break
         }
     }
 
     if (-not $desc) { $desc = "Local-first pure-Rust desktop and CLI app." }
     if ($desc.Length -gt 200) { $desc = $desc.Substring(0, 197).TrimEnd() + "..." }
-    return @{ name = $title; desc = $desc }
+    return @{ name = $title; desc = $desc; highlights = $highlights }
 }
 
-$apps = @()
+$diyApps = @()
+$allApps = @()
 $dirs = Get-ChildItem -Directory (Join-Path $FleetRoot "*craft*") | Sort-Object Name
 
 foreach ($d in $dirs) {
     $key = $d.Name
-    if ($BackofficeRepos -contains $key -or $ExcludeRepos -contains $key) { continue }
+    if ($ExcludeRepos -contains $key) { continue }
 
     $cargo = Join-Path $d.FullName "Cargo.toml"
-    if ((Test-Path $cargo) -and (Select-String -Path $cargo -Pattern 'craft-biz' -Quiet)) {
+    $isBackoffice = ($BackofficeMeta.ContainsKey($key)) -or ((Test-Path $cargo) -and (Select-String -Path $cargo -Pattern 'craft-biz' -Quiet))
+
+    $details = Get-ReadmeDetails -Dir $d.FullName -FallbackName $key
+    $ver = Get-RepoVersion -Dir $d.FullName
+    $gh = Get-GitHubUrl -Dir $d.FullName -Key $key
+    $hasInstaller = Test-Path (Join-Path $d.FullName "scripts\install-craft.ps1")
+
+    if ($isBackoffice) {
+        $bm = if ($BackofficeMeta.ContainsKey($key)) { $BackofficeMeta[$key] } else { @{ name = $details.name; icon = '🏢'; badge = 'Back-Office'; replaces = 'Cloud SaaS'; desc = $details.desc } }
+        $allApps += [ordered]@{
+            id         = $key
+            name       = $bm.name
+            repo       = $key
+            suite      = 'backoffice'
+            cat        = 'backoffice'
+            icon       = $bm.icon
+            badge      = $bm.badge
+            replaces   = $bm.replaces
+            version    = $ver
+            github     = $gh
+            installer  = $hasInstaller
+            desc       = $bm.desc
+            highlights = $details.highlights
+        }
         continue
     }
 
-    $summary = Get-ReadmeSummary -Dir $d.FullName -FallbackName $key
-    $ver = Get-RepoVersion -Dir $d.FullName
-    $gh = Get-GitHubUrl -Dir $d.FullName -Key $key
-    $m = if ($Meta.ContainsKey($key)) { $Meta[$key] } else { @{ cat = 'infra'; icon = '🛠️'; badge = if ($ver) { $ver } else { 'DIY Craft' }; desc = $null } }
-    $finalDesc = if ($m.desc) { $m.desc } else { $summary.desc }
+    $m = if ($DiyMeta.ContainsKey($key)) { $DiyMeta[$key] } else { @{ cat = 'infra'; icon = '🛠️'; badge = if ($ver) { $ver } else { 'DIY Craft' }; desc = $null } }
+    $finalDesc = if ($m.desc) { $m.desc } else { $details.desc }
 
-    $apps += [ordered]@{
-        name    = $summary.name
+    $diyEntry = [ordered]@{
+        id      = $key
+        name    = $details.name
         repo    = $key
         cat     = $m.cat
         icon    = $m.icon
@@ -170,20 +207,34 @@ foreach ($d in $dirs) {
         github  = $gh
         desc    = $finalDesc
     }
+    $diyApps += $diyEntry
+
+    $allApps += [ordered]@{
+        id         = $key
+        name       = $details.name
+        repo       = $key
+        suite      = 'diy'
+        cat        = $m.cat
+        icon       = $m.icon
+        badge      = $m.badge
+        replaces   = $null
+        version    = $ver
+        github     = $gh
+        installer  = $hasInstaller
+        desc       = $finalDesc
+        highlights = $details.highlights
+    }
 }
 
 $outDir = Join-Path $RepoRoot "web\data"
 if (-not (Test-Path $outDir)) {
     New-Item -ItemType Directory -Path $outDir -Force | Out-Null
 }
-$outFile = Join-Path $outDir "diy-apps.json"
 
-$payload = [ordered]@{
-    generated_at = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ssK")
-    count        = $apps.Count
-    apps         = $apps
-}
+$stamp = (Get-Date).ToString("yyyy-MM-ddTHH:mm:ssK")
+$diyPayload = [ordered]@{ generated_at = $stamp; count = $diyApps.Count; apps = $diyApps }
+$allPayload = [ordered]@{ generated_at = $stamp; count = $allApps.Count; apps = $allApps }
 
-$json = $payload | ConvertTo-Json -Depth 4
-[System.IO.File]::WriteAllText($outFile, $json, [System.Text.UTF8Encoding]::new($false))
-Write-Host "sync: wrote $($apps.Count) DIY craft apps to $outFile" -ForegroundColor Green
+[System.IO.File]::WriteAllText((Join-Path $outDir "diy-apps.json"), ($diyPayload | ConvertTo-Json -Depth 5), [System.Text.UTF8Encoding]::new($false))
+[System.IO.File]::WriteAllText((Join-Path $outDir "all-apps.json"), ($allPayload | ConvertTo-Json -Depth 5), [System.Text.UTF8Encoding]::new($false))
+Write-Host "sync: wrote $($diyApps.Count) DIY apps and $($allApps.Count) total apps to $outDir" -ForegroundColor Green
