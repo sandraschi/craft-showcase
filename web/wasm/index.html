@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Local Craft Suite — In-Browser WASM Showcase</title>
+  <title>Sovereign Craft Suite — In-Browser WASM Showcase</title>
   
 <script type="module">
-import init, * as bindings from './craft-showcase-wasm-2f64956813fd7881.js';
-const wasm = await init({ module_or_path: './craft-showcase-wasm-c557308340ddf452_bg.wasm' });
+import init, * as bindings from './craft-showcase-wasm-6f5a23914e9b03e0.js';
+const wasm = await init({ module_or_path: './craft-showcase-wasm-7c81d73a5ec828b_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -44,7 +44,7 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
       transition: opacity 0.5s ease;
     }
   </style>
-<link rel="modulepreload" href="./craft-showcase-wasm-2f64956813fd7881.js" crossorigin="anonymous" integrity="sha384-ptlcz3SQHg62BZuH/agu4Wq2siH5y0C2TM1It2UPklnu6itqH+4tG2hWWEkay7At"><link rel="preload" href="./craft-showcase-wasm-c557308340ddf452_bg.wasm" crossorigin="anonymous" integrity="sha384-139r68IKbtGsQyG9UQFll90r5M7CdLlTCDo5vrfc5LxLM5fOvKQgNBLBkveqanz6" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="./craft-showcase-wasm-6f5a23914e9b03e0.js" crossorigin="anonymous" integrity="sha384-nVUendxnQfao5oEoSbzTa9IrSRJe8NhlzOptRPXX3ObUWHlH5CCuKmWN2LB5qztk"><link rel="preload" href="./craft-showcase-wasm-7c81d73a5ec828b_bg.wasm" crossorigin="anonymous" integrity="sha384-9bVTkKcQdQXmduUlSYv8C5lAo5c+ppnmLTvQWcam4PbV3OgrMl2jU8VGhN6mdcvi" as="fetch" type="application/wasm"></head>
 <body>
   <div id="loading" class="loading-overlay">
     <div>⚡ Initializing Pure-Rust WebAssembly Engine...</div>

@@ -38,6 +38,7 @@ if ($Smoke -or ($args -contains "--smoke")) {
 if ($Build) {
     Set-Location (Join-Path $RepoRoot "crates\craft-showcase-wasm")
     & "$env:USERPROFILE\.cargo\bin\trunk.exe" build --release --public-url ./
+    if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
     Copy-Item -Path "dist\*" -Destination (Join-Path $RepoRoot "web\wasm") -Recurse -Force
     Write-Host "Build complete: WASM copied to web\wasm" -ForegroundColor Green
     exit 0
