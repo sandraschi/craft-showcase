@@ -277,6 +277,15 @@ pub struct StockRow {
     pub unit_cost_cents: i64,
 }
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum HelpDialog {
+    Palette,
+    Shortcuts,
+    Docs,
+    Licenses,
+    About,
+}
+
 pub struct ShowcaseApp {
     pub app: ActiveApp,
     pub app_view: usize,
@@ -285,7 +294,8 @@ pub struct ShowcaseApp {
     pub show_app_nav: bool,
     pub show_bus_drawer: bool,
     pub show_app_launcher: bool,
-    pub show_about: bool,
+    pub help_dialog: Option<HelpDialog>,
+    pub palette_query: String,
     pub mcp_output_modal: Option<(String, String)>,
     pub launcher_filter: String,
     pub bus_log: Vec<String>,
@@ -371,7 +381,8 @@ impl Default for ShowcaseApp {
             show_app_nav: true,
             show_bus_drawer: false,
             show_app_launcher: false,
-            show_about: false,
+            help_dialog: None,
+            palette_query: String::new(),
             mcp_output_modal: None,
             launcher_filter: String::new(),
             bus_log: vec![
@@ -518,6 +529,13 @@ impl eframe::App for ShowcaseApp {
             ("File", "Edit", "View", "Tools", "Help")
         };
 
+        if ctx.input(|i| i.key_pressed(egui::Key::F1)) {
+            self.help_dialog = Some(HelpDialog::Shortcuts);
+        }
+        if ctx.input(|i| i.modifiers.command && i.key_pressed(egui::Key::K)) {
+            self.help_dialog = Some(HelpDialog::Palette);
+        }
+
         // 1. PER-APP MENU BAR (matches real craft-biz-ui desktop app chrome)
         egui::Panel::top("app_menu_bar").show(ui, |ui| {
             egui::MenuBar::new().ui(ui, |ui| {
@@ -616,11 +634,34 @@ impl eframe::App for ShowcaseApp {
                 });
 
                 ui.menu_button(m_help, |ui| {
-                    if ui
-                        .button(format!("About {}", self.app.label()))
-                        .clicked()
-                    {
-                        self.show_about = true;
+                    let lbl_palette = if self.lang_de { "Befehle... (Ctrl+K)" } else { "Command Palette... (Ctrl+K)" };
+                    let lbl_keys = if self.lang_de { "Tastenkürzel... (F1)" } else { "Keyboard Shortcuts... (F1)" };
+                    let lbl_docs = if self.lang_de { "Projektdateien und Doku..." } else { "Project Files & Docs..." };
+                    let lbl_lic = if self.lang_de { "Lizenzen und Hinweise..." } else { "Licenses & Notices..." };
+                    let lbl_about = if self.lang_de {
+                        format!("Über {}", self.app.label())
+                    } else {
+                        format!("About {}", self.app.label())
+                    };
+                    if ui.button(lbl_palette).clicked() {
+                        self.help_dialog = Some(HelpDialog::Palette);
+                        ui.close();
+                    }
+                    if ui.button(lbl_keys).clicked() {
+                        self.help_dialog = Some(HelpDialog::Shortcuts);
+                        ui.close();
+                    }
+                    if ui.button(lbl_docs).clicked() {
+                        self.help_dialog = Some(HelpDialog::Docs);
+                        ui.close();
+                    }
+                    if ui.button(lbl_lic).clicked() {
+                        self.help_dialog = Some(HelpDialog::Licenses);
+                        ui.close();
+                    }
+                    ui.separator();
+                    if ui.button(lbl_about).clicked() {
+                        self.help_dialog = Some(HelpDialog::About);
                         ui.close();
                     }
                 });
@@ -810,19 +851,107 @@ impl eframe::App for ShowcaseApp {
             }
         }
 
-        // 7. ABOUT MODAL
-        if self.show_about {
-            let mut open = self.show_about;
-            egui::Window::new(format!("About {}", self.app.label()))
+        // 7. CRAFT MENU BAR STANDARD HELP SUITE (5 DIALOGS)
+        if let Some(dialog) = self.help_dialog {
+            let mut open = true;
+            let title = match dialog {
+                HelpDialog::Palette => "Command Palette",
+                HelpDialog::Shortcuts => "Keyboard Shortcuts",
+                HelpDialog::Docs => "Project Files & Docs",
+                HelpDialog::Licenses => "Licenses & Notices",
+                HelpDialog::About => "About",
+            };
+            let mut switch_to: Option<ActiveApp> = None;
+            let mut run_tool: Option<&'static str> = None;
+            egui::Window::new(format!("{title} — {}", self.app.label()))
                 .open(&mut open)
-                .collapsible(false)
-                .resizable(false)
-                .show(&ctx, |ui| {
-                    ui.label(format!("{} — {}", self.app.label(), self.app.subtitle()));
-                    ui.label("Part of the 22-app Pure-Rust Local Craft Suite (Back-Office + Shop Craft).");
-                    ui.label("Full app chrome: Menu Bar (File/Edit/View/Tools/Bus/Help), Per-App Nav, MCP Tools & Domino Bus.");
+                .default_width(480.0)
+                .resizable(true)
+                .show(&ctx, |ui| match dialog {
+                    HelpDialog::Palette => {
+                        ui.add(
+                            egui::TextEdit::singleline(&mut self.palette_query)
+                                .hint_text("Type app or MCP tool name..."),
+                        );
+                        ui.separator();
+                        let q = self.palette_query.trim().to_lowercase();
+                        egui::ScrollArea::vertical().max_height(260.0).show(ui, |ui| {
+                            for tool in self.app.mcp_tools() {
+                                if (q.is_empty() || tool.contains(&q))
+                                    && ui.button(format!("MCP Tool: {tool}")).clicked()
+                                {
+                                    run_tool = Some(*tool);
+                                }
+                            }
+                            ui.separator();
+                            for cand in ActiveApp::BACKOFFICE.iter().chain(ActiveApp::SHOPCRAFT.iter()) {
+                                if (q.is_empty() || cand.label().to_lowercase().contains(&q))
+                                    && ui.button(format!("Switch App: {}", cand.label())).clicked()
+                                {
+                                    switch_to = Some(*cand);
+                                }
+                            }
+                        });
+                    }
+                    HelpDialog::Shortcuts => {
+                        egui::Grid::new("shortcuts_grid").num_columns(2).striped(true).show(ui, |ui| {
+                            for (k, desc) in [
+                                ("Ctrl+K", "Open Command Palette"),
+                                ("F1", "Open Keyboard Shortcuts"),
+                                ("File -> Export JSON", "Export live app JSON snapshot"),
+                                ("Tools -> <mcp_tool>", "Invoke MCP tool in-process"),
+                                ("Apps (22)", "Open Back-Office + Shop Craft launcher"),
+                            ] {
+                                ui.monospace(k);
+                                ui.label(desc);
+                                ui.end_row();
+                            }
+                        });
+                    }
+                    HelpDialog::Docs => {
+                        ui.strong(format!("{} ({})", self.app.label(), self.app.short_id()));
+                        ui.label(self.app.subtitle());
+                        ui.separator();
+                        ui.monospace(format!("Repository: https://github.com/sandraschi/{}", self.app.short_id()));
+                        ui.monospace(format!("Crates: {0}-core, {0}-mcp, {0}-app", self.app.short_id()));
+                        ui.monospace(format!("CLI/MCP: {} mcp | status | seed", self.app.short_id()));
+                        if let Some(url) = self.app.demo_url() {
+                            ui.add_space(6.0);
+                            if ui.button("Open Live Demo Storefront").clicked() {
+                                ctx.open_url(egui::OpenUrl::new_tab(url));
+                            }
+                        }
+                    }
+                    HelpDialog::Licenses => {
+                        ui.strong("Dual-Licensed: MIT OR Apache-2.0");
+                        ui.label("Built in Pure Rust with zero runtime cloud dependencies.");
+                        ui.separator();
+                        ui.monospace("egui / eframe 0.37.0 — MIT OR Apache-2.0");
+                        ui.monospace("serde / serde_json 1.0 — MIT OR Apache-2.0");
+                        ui.monospace("chrono 0.4 — MIT OR Apache-2.0");
+                        ui.monospace("wasm-bindgen 0.2 — MIT OR Apache-2.0");
+                    }
+                    HelpDialog::About => {
+                        ui.strong(format!("{} v0.1.0", self.app.label()));
+                        ui.label(self.app.subtitle());
+                        ui.separator();
+                        ui.label("Part of the 22-app Pure-Rust Local Craft Suite (Back-Office + Shop Craft).");
+                        ui.label("Safety: #![deny(clippy::unwrap_used, clippy::expect_used, clippy::panic)]");
+                        ui.monospace(format!("https://github.com/sandraschi/{}", self.app.short_id()));
+                    }
                 });
-            self.show_about = open;
+            if !open {
+                self.help_dialog = None;
+            }
+            if let Some(next) = switch_to {
+                self.switch_app(next);
+                self.help_dialog = None;
+            }
+            if let Some(tool) = run_tool {
+                let out = self.run_mcp_tool(tool);
+                self.mcp_output_modal = Some((format!("MCP: {tool}"), out));
+                self.help_dialog = None;
+            }
         }
 
         // 8. MAIN APP WORKSPACE
