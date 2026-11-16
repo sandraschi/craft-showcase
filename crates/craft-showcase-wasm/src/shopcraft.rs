@@ -52,6 +52,15 @@ pub struct SubPlan {
 
 impl ShowcaseApp {
     pub fn render_shop_app(&mut self, ui: &mut egui::Ui, app: ActiveApp) {
+        if let Some(url) = app.demo_url() {
+            ui.horizontal(|ui| {
+                ui.label(RichText::new("Live HTML Storefront:").strong());
+                if ui.button("Open Demo Webshop in New Tab").clicked() {
+                    ui.ctx().open_url(egui::OpenUrl::new_tab(url));
+                }
+            });
+            ui.add_space(4.0);
+        }
         match app {
             ActiveApp::WebShop | ActiveApp::Shop | ActiveApp::AmazonShop => {
                 self.render_retail_shop(ui, app);

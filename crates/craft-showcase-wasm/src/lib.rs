@@ -181,6 +181,18 @@ impl ActiveApp {
             _ => &["app_status", "app_seed"],
         }
     }
+
+    pub fn demo_url(self) -> Option<&'static str> {
+        match self {
+            Self::WebShop => Some("../demos/webshopcraft/index.html"),
+            Self::Wholesale => Some("../demos/wholesalecraft/index.html"),
+            Self::DigitalShop => Some("../demos/digitalshopcraft/index.html"),
+            Self::SubShop => Some("../demos/subshopcraft/index.html"),
+            Self::RentalShop => Some("../demos/rentalshopcraft/index.html"),
+            Self::TicketShop => Some("../demos/ticketshopcraft/index.html"),
+            _ => None,
+        }
+    }
 }
 
 #[derive(Clone)]
@@ -617,6 +629,11 @@ impl eframe::App for ShowcaseApp {
                     if ui.button("Apps (22)").clicked() {
                         self.show_app_launcher = !self.show_app_launcher;
                     }
+                    if let Some(url) = self.app.demo_url() {
+                        if ui.button("Open Demo Webshop").clicked() {
+                            ctx.open_url(egui::OpenUrl::new_tab(url));
+                        }
+                    }
                     if ui.small_button(if self.lang_de { "DE" } else { "EN" }).clicked() {
                         self.lang_de = !self.lang_de;
                     }
@@ -708,6 +725,11 @@ impl eframe::App for ShowcaseApp {
                     }
                     ui.add_space(16.0);
                     ui.separator();
+                    if let Some(url) = self.app.demo_url() {
+                        if ui.button("Open Demo Webshop").clicked() {
+                            ctx.open_url(egui::OpenUrl::new_tab(url));
+                        }
+                    }
                     if ui.button("Switch App (22)...").clicked() {
                         self.show_app_launcher = true;
                     }
