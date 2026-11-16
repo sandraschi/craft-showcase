@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T01:47:15+01:00",
-  "count": 56,
+  "generated_at": "2026-11-16T01:58:09+01:00",
+  "count": 57,
   "apps": [
     {
       "id": "aicraft",
@@ -998,6 +998,21 @@
         "Sick leave stores no reason (health data stays out, enforced in code and by the schema).",
         "KV check: import your own KV minimum table (CSV) and compare each employee's gross pro rata to weekly hours. No KV figures ship with the app; they change every year."
       ]
+    },
+    {
+      "id": "ticketshopcraft",
+      "name": "TicketShopCraft",
+      "repo": "ticketshopcraft",
+      "suite": "backoffice",
+      "cat": "backoffice",
+      "icon": "🎟️",
+      "badge": "Box Office & QR",
+      "replaces": "Eventbrite, Ticket Tailor & Pretix",
+      "version": "v0.1.0",
+      "github": "https://github.com/sandraschi/ticketshopcraft",
+      "installer": true,
+      "desc": "Local-first event ticketing, workshops, and seat reservation storefront with capacity enforcement, door check-in, and refunds.",
+      "highlights": []
     },
     {
       "id": "travelcraft",
