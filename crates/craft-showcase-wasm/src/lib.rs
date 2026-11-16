@@ -295,6 +295,7 @@ pub struct ShowcaseApp {
     pub show_bus_drawer: bool,
     pub show_app_launcher: bool,
     pub help_dialog: Option<HelpDialog>,
+    pub selected_doc: usize,
     pub palette_query: String,
     pub mcp_output_modal: Option<(String, String)>,
     pub launcher_filter: String,
@@ -382,6 +383,7 @@ impl Default for ShowcaseApp {
             show_bus_drawer: false,
             show_app_launcher: false,
             help_dialog: None,
+            selected_doc: 0,
             palette_query: String::new(),
             mcp_output_modal: None,
             launcher_filter: String::new(),
@@ -636,6 +638,8 @@ impl eframe::App for ShowcaseApp {
                 ui.menu_button(m_help, |ui| {
                     let lbl_palette = if self.lang_de { "Befehle... (Ctrl+K)" } else { "Command Palette... (Ctrl+K)" };
                     let lbl_keys = if self.lang_de { "Tastenkürzel... (F1)" } else { "Keyboard Shortcuts... (F1)" };
+                    let lbl_start = if self.lang_de { "Erste Schritte..." } else { "Getting Started..." };
+                    let lbl_usage = if self.lang_de { "Bedienung & Workflows..." } else { "Usage & Workflows..." };
                     let lbl_docs = if self.lang_de { "Projektdateien und Doku..." } else { "Project Files & Docs..." };
                     let lbl_lic = if self.lang_de { "Lizenzen und Hinweise..." } else { "Licenses & Notices..." };
                     let lbl_about = if self.lang_de {
@@ -651,15 +655,26 @@ impl eframe::App for ShowcaseApp {
                         self.help_dialog = Some(HelpDialog::Shortcuts);
                         ui.close();
                     }
+                    ui.separator();
+                    if ui.button(lbl_start).clicked() {
+                        self.selected_doc = 0;
+                        self.help_dialog = Some(HelpDialog::Docs);
+                        ui.close();
+                    }
+                    if ui.button(lbl_usage).clicked() {
+                        self.selected_doc = 1;
+                        self.help_dialog = Some(HelpDialog::Docs);
+                        ui.close();
+                    }
                     if ui.button(lbl_docs).clicked() {
                         self.help_dialog = Some(HelpDialog::Docs);
                         ui.close();
                     }
+                    ui.separator();
                     if ui.button(lbl_lic).clicked() {
                         self.help_dialog = Some(HelpDialog::Licenses);
                         ui.close();
                     }
-                    ui.separator();
                     if ui.button(lbl_about).clicked() {
                         self.help_dialog = Some(HelpDialog::About);
                         ui.close();
@@ -909,18 +924,101 @@ impl eframe::App for ShowcaseApp {
                         });
                     }
                     HelpDialog::Docs => {
-                        ui.strong(format!("{} ({})", self.app.label(), self.app.short_id()));
-                        ui.label(self.app.subtitle());
-                        ui.separator();
-                        ui.monospace(format!("Repository: https://github.com/sandraschi/{}", self.app.short_id()));
-                        ui.monospace(format!("Crates: {0}-core, {0}-mcp, {0}-app", self.app.short_id()));
-                        ui.monospace(format!("CLI/MCP: {} mcp | status | seed", self.app.short_id()));
-                        if let Some(url) = self.app.demo_url() {
-                            ui.add_space(6.0);
-                            if ui.button("Open Live Demo Storefront").clicked() {
-                                ctx.open_url(egui::OpenUrl::new_tab(url));
-                            }
-                        }
+                        let id = self.app.short_id();
+                        let name = self.app.label();
+                        let sub = self.app.subtitle();
+                        let tools_list = self.app.mcp_tools().join(", ");
+                        let nav_list = self.app.nav_items().join(" • ");
+                        let docs: [(&str, String); 5] = [
+                            (
+                                "Getting Started",
+                                format!(
+                                    "# Getting Started — {name}\n\n\
+                                     {name} ({id}) is a local-first Pure-Rust application: {sub}.\n\n\
+                                     Quickstart (Desktop / CLI):\n\
+                                     1. Build & smoke test: .\\start.ps1 -Smoke\n\
+                                     2. Seed demo data: .\\start.ps1 -NoBuild -Cli seed\n\
+                                     3. Launch native egui app: .\\start.ps1 -NoBuild\n\
+                                     4. Press Ctrl+K for Command Palette or F1 for Keyboard Shortcuts.\n\n\
+                                     In this WASM Sandbox:\n\
+                                     - Use the left navigation rail ({nav_list}) to switch workspace views.\n\
+                                     - Use Tools in the menu bar to invoke MCP tools in-process."
+                                ),
+                            ),
+                            (
+                                "Usage & Workflows",
+                                format!(
+                                    "# Usage & Workflows — {name}\n\n\
+                                     Workspace Views: {nav_list}\n\n\
+                                     Core Workflows:\n\
+                                     - All records are stored in a local SQLite WAL database with zero cloud lock-in.\n\
+                                     - Mutations emit atomic JSON events onto the craft-biz Domino Bus.\n\
+                                     - Use File -> Export JSON Snapshot to inspect live structured state.\n\
+                                     - Use Bus -> Toggle Live Event Log to watch cross-app cascades in real time."
+                                ),
+                            ),
+                            (
+                                "CLI & MCP Reference",
+                                format!(
+                                    "# CLI & MCP Reference — {id}\n\n\
+                                     Binary: {id}.exe (L2 CLI + MCP 2024-11-05 stdio server)\n\n\
+                                     Common Commands:\n\
+                                     - {id} status --json\n\
+                                     - {id} seed\n\
+                                     - {id} mcp   (stdio JSON-RPC 2.0 server)\n\n\
+                                     Available MCP Tools:\n\
+                                     {tools_list}"
+                                ),
+                            ),
+                            (
+                                "Architecture & Domino Bus",
+                                format!(
+                                    "# Architecture — {name}\n\n\
+                                     3-Crate Pure-Rust Layout:\n\
+                                     - crates/{id}-core : SQLite WAL store, domain rules, ToolHost + Bus\n\
+                                     - crates/{id}-mcp  : Clap CLI (--json) + stdio MCP server\n\
+                                     - crates/{id}-app  : Native egui 0.37 workstation via craft-biz-ui\n\n\
+                                     Safety Policy:\n\
+                                     #![deny(clippy::unwrap_used, clippy::expect_used, clippy::panic)]"
+                                ),
+                            ),
+                            (
+                                "README.md",
+                                format!(
+                                    "# {name}\n\n\
+                                     {sub}.\n\n\
+                                     Repository: https://github.com/sandraschi/{id}\n\
+                                     License: MIT OR Apache-2.0\n\n\
+                                     Part of the Local Craft Suite — local-first, offline-capable, airgap-ready Pure-Rust software."
+                                ),
+                            ),
+                        ];
+
+                        ui.horizontal(|ui| {
+                            ui.vertical(|ui| {
+                                ui.set_min_width(170.0);
+                                ui.strong("Documents");
+                                ui.separator();
+                                for (idx, (doc_title, _)) in docs.iter().enumerate() {
+                                    if ui.selectable_label(self.selected_doc == idx, *doc_title).clicked() {
+                                        self.selected_doc = idx;
+                                    }
+                                }
+                                if let Some(url) = self.app.demo_url() {
+                                    ui.add_space(10.0);
+                                    if ui.button("Open Demo Webshop").clicked() {
+                                        ctx.open_url(egui::OpenUrl::new_tab(url));
+                                    }
+                                }
+                            });
+                            ui.separator();
+                            egui::ScrollArea::vertical().max_height(320.0).show(ui, |ui| {
+                                ui.set_min_width(340.0);
+                                if let Some((_, body)) = docs.get(self.selected_doc) {
+                                    ui.label(RichText::new(body).monospace().size(11.5));
+                                }
+                            });
+                        });
                     }
                     HelpDialog::Licenses => {
                         ui.strong("Dual-Licensed: MIT OR Apache-2.0");
