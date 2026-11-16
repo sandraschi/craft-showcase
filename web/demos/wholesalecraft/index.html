@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NORDIC TRADE PORTAL — B2B Wholesale Ordering</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-badge">W</div>
+      <div>
+        <h1 id="portal-name">NORDIC TRADE PORTAL</h1>
+        <p id="portal-tagline">Local-first B2B Wholesale &amp; Net-30/60 Ordering</p>
+      </div>
+    </div>
+    <div class="account-picker">
+      <label for="account-select">Trade Account</label>
+      <select id="account-select"></select>
+    </div>
+  </header>
+
+  <section class="account-strip" id="account-strip"></section>
+
+  <main class="layout">
+    <section class="panel catalog-panel">
+      <div class="panel-head">
+        <h2>Bulk SKU Quick-Order Grid</h2>
+        <div class="filters">
+          <input id="search-input" type="search" placeholder="Filter SKU or product..." />
+          <select id="category-select">
+            <option value="">All Categories</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>SKU</th>
+              <th>Product</th>
+              <th>MOQ / Pack</th>
+              <th>List</th>
+              <th>Your Net</th>
+              <th>Stock</th>
+              <th>Order Qty</th>
+              <th>Line Total</th>
+            </tr>
+          </thead>
+          <tbody id="catalog-body"></tbody>
+        </table>
+      </div>
+
+      <div class="csv-pad">
+        <h3>CSV Quick-Import (SKU,QTY)</h3>
+        <div class="csv-row">
+          <textarea id="csv-input" rows="3" placeholder="WS-CER-01,36&#10;WS-LGT-02,12"></textarea>
+          <button id="csv-apply-btn" class="btn-secondary" type="button">Apply CSV Lines</button>
+        </div>
+      </div>
+    </section>
+
+    <aside class="panel order-panel">
+      <h2>Purchase Order Summary</h2>
+      <div class="field">
+        <label for="po-ref-input">Your PO Reference</label>
+        <input id="po-ref-input" type="text" placeholder="e.g. PO-2026-Q4-019" />
+      </div>
+
+      <div id="order-lines" class="order-lines">
+        <p class="muted">Select quantities at or above MOQ to build a Purchase Order.</p>
+      </div>
+
+      <div class="totals" id="totals-box"></div>
+      <div id="status-banner" class="banner hidden"></div>
+
+      <button id="submit-po-btn" class="btn-primary" type="button" disabled>Submit Purchase Order</button>
+
+      <div class="recent-orders">
+        <h3>Recent Purchase Orders</h3>
+        <div id="orders-list" class="orders-list"></div>
+      </div>
+    </aside>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

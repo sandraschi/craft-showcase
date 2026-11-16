@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KRAFT DIGITAL VAULT — Licenses, Downloads &amp; EU VAT OSS</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="badge-logo">D</div>
+      <div>
+        <h1 id="store-name">KRAFT DIGITAL VAULT</h1>
+        <p id="store-tagline">Instant License Keys, Downloads &amp; EU VAT OSS</p>
+      </div>
+    </div>
+    <div class="country-picker">
+      <label for="country-select">Buyer Country (EU OSS)</label>
+      <select id="country-select"></select>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="catalog-grid" id="catalog-grid"></section>
+
+    <aside class="checkout-panel">
+      <h2>Instant Digital Checkout</h2>
+      <div id="cart-items" class="cart-items">
+        <p class="muted">Add digital products to generate instant license keys &amp; download tokens.</p>
+      </div>
+      <div id="totals-box" class="totals"></div>
+
+      <div class="field">
+        <label for="buyer-name">Full Name</label>
+        <input id="buyer-name" type="text" placeholder="e.g. Lukas Meyer" />
+      </div>
+      <div class="field">
+        <label for="buyer-email">Delivery Email</label>
+        <input id="buyer-email" type="email" placeholder="e.g. lukas@example.de" />
+      </div>
+
+      <button id="checkout-btn" class="btn-primary" type="button" disabled>Pay &amp; Issue License Keys</button>
+
+      <div id="receipt-box" class="receipt hidden"></div>
+    </aside>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

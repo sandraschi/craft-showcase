@@ -1,0 +1,130 @@
+{
+  "store_name": "KRAFT DIGITAL VAULT",
+  "tagline": "Instant License Keys, Downloads & EU VAT OSS",
+  "currency": "EUR",
+  "generated_at": "2026-11-15T22:25:04.560792600+00:00",
+  "vat_rates": [
+    {
+      "country_code": "AT",
+      "country_name": "Austria",
+      "vat_pct": 20,
+      "oss_eligible": true
+    },
+    {
+      "country_code": "CH",
+      "country_name": "Switzerland (Export)",
+      "vat_pct": 0,
+      "oss_eligible": false
+    },
+    {
+      "country_code": "DE",
+      "country_name": "Germany",
+      "vat_pct": 19,
+      "oss_eligible": true
+    },
+    {
+      "country_code": "ES",
+      "country_name": "Spain",
+      "vat_pct": 21,
+      "oss_eligible": true
+    },
+    {
+      "country_code": "FR",
+      "country_name": "France",
+      "vat_pct": 20,
+      "oss_eligible": true
+    },
+    {
+      "country_code": "IT",
+      "country_name": "Italy",
+      "vat_pct": 22,
+      "oss_eligible": true
+    },
+    {
+      "country_code": "NL",
+      "country_name": "Netherlands",
+      "vat_pct": 21,
+      "oss_eligible": true
+    },
+    {
+      "country_code": "SE",
+      "country_name": "Sweden",
+      "vat_pct": 25,
+      "oss_eligible": true
+    }
+  ],
+  "products": [
+    {
+      "id": 3,
+      "sku": "DIG-AUDIO-02",
+      "title": "Alpine Field & Foley Sound Pack (24-bit WAV)",
+      "kind": "Asset Pack",
+      "version": "1.0.0",
+      "file_size_mb": 640.0,
+      "price_net_cents": 5900,
+      "issues_license": true,
+      "max_downloads": 3,
+      "active": true
+    },
+    {
+      "id": 4,
+      "sku": "DIG-CAD-03",
+      "title": "Parametric Joinery & CNC Template Library",
+      "kind": "Templates",
+      "version": "3.1.0",
+      "file_size_mb": 92.4,
+      "price_net_cents": 7900,
+      "issues_license": true,
+      "max_downloads": 5,
+      "active": true
+    },
+    {
+      "id": 5,
+      "sku": "DIG-COURSE-04",
+      "title": "Zero-Panic SQLite & egui Workshop (4K MP4)",
+      "kind": "Course",
+      "version": "2026.1",
+      "file_size_mb": 1420.0,
+      "price_net_cents": 11900,
+      "issues_license": true,
+      "max_downloads": 5,
+      "active": true
+    },
+    {
+      "id": 2,
+      "sku": "DIG-EBOOK-01",
+      "title": "Local-First Rust Architecture Handbook (PDF/EPUB)",
+      "kind": "Ebook",
+      "version": "1.2.0",
+      "file_size_mb": 18.2,
+      "price_net_cents": 3900,
+      "issues_license": false,
+      "max_downloads": 5,
+      "active": true
+    },
+    {
+      "id": 6,
+      "sku": "DIG-FONT-05",
+      "title": "Nordic Mono & Grotesk Typeface Family",
+      "kind": "Fonts",
+      "version": "1.5.0",
+      "file_size_mb": 6.8,
+      "price_net_cents": 8900,
+      "issues_license": true,
+      "max_downloads": 8,
+      "active": true
+    },
+    {
+      "id": 1,
+      "sku": "DIG-RUST-PRO",
+      "title": "Local Craft Studio Pro License",
+      "kind": "License",
+      "version": "2.4.0",
+      "file_size_mb": 48.5,
+      "price_net_cents": 14900,
+      "issues_license": true,
+      "max_downloads": 10,
+      "active": true
+    }
+  ]
+}
