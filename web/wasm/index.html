@@ -6,8 +6,8 @@
   <title>Sovereign Craft Suite — In-Browser WASM Showcase</title>
   
 <script type="module">
-import init, * as bindings from './craft-showcase-wasm-45fd93daaf22e17c.js';
-const wasm = await init({ module_or_path: './craft-showcase-wasm-b3b5a28dde303c54_bg.wasm' });
+import init, * as bindings from './craft-showcase-wasm-9246deca943a8a02.js';
+const wasm = await init({ module_or_path: './craft-showcase-wasm-272a14c993915119_bg.wasm' });
 
 
 window.wasmBindings = bindings;
@@ -44,7 +44,7 @@ dispatchEvent(new CustomEvent("TrunkApplicationStarted", {detail: {wasm}}));
       transition: opacity 0.5s ease;
     }
   </style>
-<link rel="modulepreload" href="./craft-showcase-wasm-45fd93daaf22e17c.js" crossorigin="anonymous" integrity="sha384-YDDGPcmCJYH9UkX6BqPw/V8uAMA+KLwZrvx4lwVKbzCT+8kbemw02wVdCpI+Mjc/"><link rel="preload" href="./craft-showcase-wasm-b3b5a28dde303c54_bg.wasm" crossorigin="anonymous" integrity="sha384-TskXPR9myPZPpMF0ylcPmn8Pugs40nNy5Z87x8uui0/yQm6ixrIpiNJMZ7FefB+y" as="fetch" type="application/wasm"></head>
+<link rel="modulepreload" href="./craft-showcase-wasm-9246deca943a8a02.js" crossorigin="anonymous" integrity="sha384-VUAvHk8XYIF2Nv0U+1LPAa7dn0mZ1xXH0x8UZRa1p5hJm6nQs12mUs0t6vl7r8Wf"><link rel="preload" href="./craft-showcase-wasm-272a14c993915119_bg.wasm" crossorigin="anonymous" integrity="sha384-nJYKx5ISqD3hx3raqlrmMmRnQ67yNigfBRBVGBIK/gCs+sOKE+nGw8fu9SdWqj4p" as="fetch" type="application/wasm"></head>
 <body>
   <div id="loading" class="loading-overlay">
     <div>⚡ Initializing Pure-Rust WebAssembly Engine...</div>

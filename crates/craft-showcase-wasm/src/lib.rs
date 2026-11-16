@@ -703,6 +703,29 @@ impl eframe::App for ShowcaseApp {
             });
         });
 
+        // 1b. SANDBOX UNDER-CONSTRUCTION NOTICE BANNER
+        egui::Panel::top("sandbox_notice").show(ui, |ui| {
+            ui.horizontal_wrapped(|ui| {
+                ui.label(
+                    RichText::new("UNDER CONSTRUCTION:")
+                        .strong()
+                        .color(Color32::from_rgb(251, 191, 36)),
+                );
+                ui.label(
+                    RichText::new(
+                        "This WASM sandbox is a lightweight preview, not the full native egui + SQLite WAL app. A full native install is strongly preferable.",
+                    )
+                    .size(11.5),
+                );
+                if ui.small_button("Install Full App (GitHub)").clicked() {
+                    ctx.open_url(egui::OpenUrl::new_tab(format!(
+                        "https://github.com/sandraschi/{}",
+                        self.app.short_id()
+                    )));
+                }
+            });
+        });
+
         // 2. BOTTOM STATUS BAR
         egui::Panel::bottom("status_bar").show(ui, |ui| {
             ui.horizontal(|ui| {
@@ -1035,7 +1058,11 @@ impl eframe::App for ShowcaseApp {
                         ui.strong(format!("{} v0.1.0", self.app.label()));
                         ui.label(self.app.subtitle());
                         ui.separator();
-                        ui.label("Part of the 22-app Pure-Rust Local Craft Suite (Back-Office + Shop Craft).");
+                        ui.colored_label(
+                            Color32::from_rgb(251, 191, 36),
+                            "Note: This WASM sandbox is under construction (partial preview). Install the full native app for complete egui UI, SQLite WAL persistence, and MCP server.",
+                        );
+                        ui.add_space(4.0);
                         ui.label("Safety: #![deny(clippy::unwrap_used, clippy::expect_used, clippy::panic)]");
                         ui.monospace(format!("https://github.com/sandraschi/{}", self.app.short_id()));
                     }

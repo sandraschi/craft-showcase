@@ -170,14 +170,14 @@
     <div class="max-w-7xl mx-auto px-6">
       <div class="flex flex-col md:flex-row md:items-end justify-between mb-8">
         <div>
-          <div class="badge-pill bg-brand-400/20 text-brand-400 border border-brand-400/30 mb-3">
-            Pure Rust In-Browser WebAssembly
+          <div class="badge-pill bg-amber-400/20 text-amber-300 border border-amber-400/40 mb-3">
+            Under Construction • Lightweight Browser Preview
           </div>
           <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
-            Live WebAssembly Sandbox
+            WebAssembly Preview Sandbox
           </h2>
           <p class="text-slate-400 mt-2 max-w-2xl">
-            Test the local-first suite right now directly inside your browser. No installation or cloud account required. Renders natively on HTML5 Canvas via WebGL2/WebGPU.
+            Quick in-browser preview only — <strong class="text-amber-300">under construction</strong> and not yet 1:1 with the full native <code class="text-slate-200">egui</code> + SQLite WAL applications. <strong class="text-white">A full native install is strongly preferable</strong> to evaluate the complete workstation, MCP server, and local persistence.
           </p>
         </div>
         <div class="mt-4 md:mt-0 flex gap-3">
@@ -188,6 +188,16 @@
             ⛶ Open Fullscreen Window
           </a>
         </div>
+      </div>
+
+      <!-- UNDER CONSTRUCTION NOTICE -->
+      <div class="mb-5 rounded-xl border border-amber-400/40 bg-amber-500/10 px-5 py-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div class="text-sm text-amber-100">
+          <strong class="text-amber-300">Sandbox Under Construction:</strong> This browser sandbox is a partial preview and does not show the full 1:1 native desktop UI or local SQLite WAL engine. For the real experience, install the native app via <code class="font-mono text-xs bg-black/30 px-1.5 py-0.5 rounded">.\start.ps1</code> or the NSIS installer.
+        </div>
+        <a href="https://github.com/sandraschi?tab=repositories&q=craft" target="_blank" class="shrink-0 px-4 py-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs text-center transition-colors">
+          Install Full Native Apps ↗
+        </a>
       </div>
 
       <!-- WASM Canvas Frame Container -->
@@ -211,7 +221,7 @@
       </div>
 
       <div class="mt-6 flex flex-wrap items-center justify-between text-xs text-slate-400 font-mono">
-        <div>💡 Use the left sidebar, top menu bar (File / Edit / View / Bus / Help), or bus drawer inside the canvas to explore all 13 Back-Office apps.</div>
+        <div>Note: Sandbox preview is under construction — use Apps (22), Help -> Getting Started, or install the full native app for 1:1 functionality.</div>
         <div>Rendered via eframe 0.37 • Pure Rust WASM</div>
       </div>
     </div>
@@ -514,6 +524,22 @@
             Inbox: <span class="text-slate-200">asset.depreciation_due • Bank CSV</span>
           </div>
         </div>
+
+        <!-- StockCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📦</span>
+            <span class="text-xs font-bold font-mono text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded">EKR 1600 • MHD</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">StockCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Sortly, Katana, inFlow &amp; Cin7</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Local-first inventory &amp; warehouse management (Lagerhaltung) with moving-average valuation in integer cents, immutable Storno movements, Inventur, FEFO Lots/MHD, Niederstwertprinzip write-downs, and USB-HID barcode scanning.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Bus: <span class="text-slate-200">invoice.issued • bom.exported → stock.cogs_booked</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -735,7 +761,8 @@
       { domain: "IT Asset Inventory & AfA", saas: "Snipe-IT / Oomnitza", price: 180, craft: "AssetCraft", austrian: "§7 EStG AfA & QR Generator" },
       { domain: "Surveys & NPS Feedback", saas: "Typeform / Delighted", price: 300, craft: "FormCraft", austrian: "Detractor Event Routing" },
       { domain: "Documentation & ADRs", saas: "Notion Plus / Confluence", price: 240, craft: "WikiCraft", austrian: "FTS5 Search & Backlinks" },
-      { domain: "Austrian Bookkeeping", saas: "BMD NTCS / sevDesk / DATEV", price: 480, craft: "BuchCraft", austrian: "EKR, Storno & U30 Kennzahlen" }
+      { domain: "Austrian Bookkeeping", saas: "BMD NTCS / sevDesk / DATEV", price: 480, craft: "BuchCraft", austrian: "EKR, Storno & U30 Kennzahlen" },
+      { domain: "Inventory & Warehouse", saas: "Sortly / Katana / inFlow", price: 360, craft: "StockCraft", austrian: "EKR 1600, Inventur, MHD & Storno" }
     ];
 
     function updateROI(seats) {
