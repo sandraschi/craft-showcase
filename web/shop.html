@@ -146,7 +146,7 @@
       try {
         const res = await fetch("./data/all-apps.json", { cache: "no-store" });
         const data = await res.json();
-        const ids = new Set(["webshopcraft", "shopcraft", "amazonshopcraft", "wholesalecraft", "digitalshopcraft", "subshopcraft"]);
+        const ids = new Set(["webshopcraft", "shopcraft", "amazonshopcraft", "wholesalecraft", "digitalshopcraft", "subshopcraft", "rentalshopcraft"]);
         const apps = (data.apps || []).filter((a) => ids.has(a.id));
         if (apps.length === 0) {
           grid.innerHTML = `<div class="col-span-full text-center text-slate-400">No Shop Craft apps found in catalog.</div>`;

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T00:47:34+01:00",
-  "count": 55,
+  "generated_at": "2026-11-16T01:47:15+01:00",
+  "count": 56,
   "apps": [
     {
       "id": "aicraft",
@@ -694,6 +694,26 @@
         "puppycraft-core: Domain models, 30-breed encyclopedia & matcher, DACH/EU legal & travel guide (Vienna vs. Tokyo), SQLite store (PUPPYCRAFT_DATA), image editor, local-first LLM c...",
         "puppycraft-mcp: clap CLI and MCP 2024-11-05 stdio server (tools/list, tools/call, resources/list, resources/read for skill:// URIs).",
         "puppycraft-app: eframe/egui 0.37 native desktop workstation with Ctrl+J AI Chatbot dock."
+      ]
+    },
+    {
+      "id": "rentalshopcraft",
+      "name": "RentalShopCraft",
+      "repo": "rentalshopcraft",
+      "suite": "backoffice",
+      "cat": "backoffice",
+      "icon": "🚲",
+      "badge": "Fleet & Deposits",
+      "replaces": "Booqable, EZRentOut & Sharetribe",
+      "version": "v0.1.0",
+      "github": "https://github.com/sandraschi/rentalshopcraft",
+      "installer": true,
+      "desc": "Local-first equipment, bike, and studio gear rental storefront with date-range capacity checks, refundable deposits, and late fee ledger.",
+      "highlights": [
+        "L1 (crates/rentalshopcraft-core): SQLite WAL rental fleet & bookings store, date-range overlap capacity enforcement, checkout/checkin lifecycle (1.5x daily late fee + damage ded...",
+        "L2 (crates/rentalshopcraft-mcp): rentalshopcraft CLI, MCP 2024-11-05 stdio server (mcp), and HTTP storefront + booking API (serve --bind 127.0.0.1:11271).",
+        "L3 (crates/rentalshopcraft-app): Native egui workstation implementing craft_biz_ui::SuiteApp.",
+        "Storefront (storefront/): Static + live-API HTML/CSS/JS rental catalog, date-range picker, price & deposit estimator, and POST /api/book booking form."
       ]
     },
     {
