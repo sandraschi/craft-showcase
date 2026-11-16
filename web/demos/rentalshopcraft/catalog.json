@@ -1,0 +1,69 @@
+{
+  "store_name": "ALPINE GEAR RENTAL",
+  "tagline": "Local-First Equipment, Bike & Studio Gear Rental",
+  "currency": "EUR",
+  "generated_at": "2026-11-16T00:47:07.220189600+00:00",
+  "items": [
+    {
+      "id": 4,
+      "sku": "RNT-AUDIO-04",
+      "name": "32-bit Field Recorder & Shotgun Set",
+      "category": "Audio",
+      "daily_rate_cents": 3500,
+      "deposit_cents": 15000,
+      "units_total": 3,
+      "active": true
+    },
+    {
+      "id": 2,
+      "sku": "RNT-CAM-02",
+      "name": "Cinema 4K Mirrorless Kit",
+      "category": "Camera",
+      "daily_rate_cents": 8500,
+      "deposit_cents": 40000,
+      "units_total": 2,
+      "active": true
+    },
+    {
+      "id": 6,
+      "sku": "RNT-CAMP-06",
+      "name": "4-Season Hardshell Roof Tent",
+      "category": "Outdoor",
+      "daily_rate_cents": 4200,
+      "deposit_cents": 20000,
+      "units_total": 2,
+      "active": true
+    },
+    {
+      "id": 3,
+      "sku": "RNT-CARGO-03",
+      "name": "Electric Family Cargo Bike",
+      "category": "Bikes",
+      "daily_rate_cents": 4900,
+      "deposit_cents": 20000,
+      "units_total": 3,
+      "active": true
+    },
+    {
+      "id": 5,
+      "sku": "RNT-DRONE-05",
+      "name": "Thermal Inspection Drone Kit",
+      "category": "Drones",
+      "daily_rate_cents": 11000,
+      "deposit_cents": 50000,
+      "units_total": 1,
+      "active": true
+    },
+    {
+      "id": 1,
+      "sku": "RNT-EBIKE-01",
+      "name": "Alpine E-MTB Full-Suspension",
+      "category": "Bikes",
+      "daily_rate_cents": 5900,
+      "deposit_cents": 25000,
+      "units_total": 4,
+      "active": true
+    }
+  ],
+  "bookings": []
+}

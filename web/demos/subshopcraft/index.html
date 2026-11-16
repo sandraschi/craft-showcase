@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ALPINE REPLENISH CLUB — Recurring Boxes &amp; SEPA pain.008</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="logo">S</div>
+      <div>
+        <h1 id="store-name">ALPINE REPLENISH CLUB</h1>
+        <p id="store-tagline">Local-First Subscriptions, SEPA pain.008 &amp; Skip/Swap Control</p>
+      </div>
+    </div>
+    <div class="pill-note">Subscriber Discount: Up to 20% Off</div>
+  </header>
+
+  <main class="layout">
+    <section>
+      <h2 class="sec-title">Subscription Boxes</h2>
+      <div id="plans-grid" class="plans-grid"></div>
+
+      <h2 class="sec-title" style="margin-top:1.75rem;">Active Subscriber Portal (Skip / Pause / Swap)</h2>
+      <div id="subs-list" class="subs-list"></div>
+    </section>
+
+    <aside class="panel">
+      <h2>Start SEPA Subscription</h2>
+      <div class="field">
+        <label for="plan-select">Selected Box Plan</label>
+        <select id="plan-select"></select>
+      </div>
+      <div class="field">
+        <label for="cust-name">Full Name</label>
+        <input id="cust-name" type="text" placeholder="e.g. Anna Gruber" />
+      </div>
+      <div class="field">
+        <label for="cust-email">Email</label>
+        <input id="cust-email" type="email" placeholder="e.g. anna@example.at" />
+      </div>
+      <div class="field">
+        <label for="cust-iban">SEPA IBAN (pain.008 Mandate)</label>
+        <input id="cust-iban" type="text" placeholder="AT61 1904 3002 3457 3201" />
+      </div>
+      <button id="subscribe-btn" class="btn-primary" type="button">Activate Subscription</button>
+      <div id="msg-box" class="msg hidden"></div>
+    </aside>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ALPINE GEAR RENTAL — Equipment, Bike &amp; Studio Gear</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">Local-First Rental Fleet</span>
+        <h1 id="store-name">ALPINE GEAR RENTAL</h1>
+        <p id="store-tagline" class="tagline">Local-First Equipment, Bike &amp; Studio Gear Rental</p>
+      </div>
+      <div class="hero-stats" id="hero-stats">
+        <div class="stat">
+          <span class="stat-val" id="stat-skus">0</span>
+          <span class="stat-lbl">Fleet SKUs</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="stat-units">0</span>
+          <span class="stat-lbl">Total Units</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="stat-bookings">0</span>
+          <span class="stat-lbl">Bookings</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <section class="catalog-section">
+      <div class="section-head">
+        <h2>Rental Fleet</h2>
+        <div class="filters" id="category-filters"></div>
+      </div>
+      <div class="gear-grid" id="gear-grid"></div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="card booking-card">
+        <h2>Reserve Equipment</h2>
+        <form id="booking-form">
+          <label>
+            <span>Gear Item</span>
+            <select id="sku-select" name="sku" required></select>
+          </label>
+          <div class="date-row">
+            <label>
+              <span>Start Date</span>
+              <input type="date" id="start-date" name="start_date" required />
+            </label>
+            <label>
+              <span>End Date</span>
+              <input type="date" id="end-date" name="end_date" required />
+            </label>
+          </div>
+          <label>
+            <span>Customer Name</span>
+            <input type="text" id="customer-name" name="customer_name" placeholder="Alex Mercer" required />
+          </label>
+          <label>
+            <span>Customer Email</span>
+            <input type="email" id="customer-email" name="customer_email" placeholder="alex@example.com" required />
+          </label>
+          <div class="estimate" id="estimate-box">
+            <div><span>Duration</span><strong id="est-days">1 day</strong></div>
+            <div><span>Rental Fee</span><strong id="est-fee">€0.00</strong></div>
+            <div><span>Refundable Deposit</span><strong id="est-deposit">€0.00</strong></div>
+          </div>
+          <button type="submit" class="btn-primary">Confirm Reservation</button>
+          <p class="form-msg" id="form-msg" role="status"></p>
+        </form>
+      </div>
+
+      <div class="card bookings-card">
+        <h2>Recent Bookings</h2>
+        <div class="bookings-list" id="bookings-list"></div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer container">
+    <span>Powered by <strong>RentalShopCraft</strong> (Pure Rust + SQLite + MCP)</span>
+    <span id="generated-at"></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

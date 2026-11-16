@@ -1,0 +1,81 @@
+{
+  "store_name": "ALPINE REPLENISH CLUB",
+  "tagline": "Local-First Subscriptions, SEPA pain.008 & Skip/Swap Control",
+  "currency": "EUR",
+  "generated_at": "2026-11-15T23:47:13.837940300+00:00",
+  "plans": [
+    {
+      "id": 1,
+      "sku": "SUB-COFFEE-01",
+      "name": "Alpine Single-Origin Roast (1kg)",
+      "category": "Coffee",
+      "cadence_label": "Every 14 days",
+      "cadence_days": 14,
+      "base_price_cents": 3400,
+      "subscriber_discount_pct": 15,
+      "net_price_cents": 2890,
+      "active": true
+    },
+    {
+      "id": 6,
+      "sku": "SUB-CRAFT-06",
+      "name": "Seasonal Nordic Objects Discovery",
+      "category": "Lifestyle",
+      "cadence_label": "Quarterly",
+      "cadence_days": 90,
+      "base_price_cents": 9900,
+      "subscriber_discount_pct": 20,
+      "net_price_cents": 7920,
+      "active": true
+    },
+    {
+      "id": 4,
+      "sku": "SUB-HOME-04",
+      "name": "Zero-Waste Home Refill Bundle",
+      "category": "Home",
+      "cadence_label": "Every 30 days",
+      "cadence_days": 30,
+      "base_price_cents": 3900,
+      "subscriber_discount_pct": 18,
+      "net_price_cents": 3198,
+      "active": true
+    },
+    {
+      "id": 5,
+      "sku": "SUB-PANTRY-05",
+      "name": "Artisan Sourdough & Olive Oil Crate",
+      "category": "Pantry",
+      "cadence_label": "Monthly",
+      "cadence_days": 30,
+      "base_price_cents": 6400,
+      "subscriber_discount_pct": 10,
+      "net_price_cents": 5760,
+      "active": true
+    },
+    {
+      "id": 2,
+      "sku": "SUB-PET-02",
+      "name": "Organic Dog & Cat Nutrition Box",
+      "category": "Pets",
+      "cadence_label": "Monthly",
+      "cadence_days": 30,
+      "base_price_cents": 5800,
+      "subscriber_discount_pct": 15,
+      "net_price_cents": 4930,
+      "active": true
+    },
+    {
+      "id": 3,
+      "sku": "SUB-TEA-03",
+      "name": "Herbal Apothecary Loose-Leaf Trio",
+      "category": "Tea",
+      "cadence_label": "Monthly",
+      "cadence_days": 30,
+      "base_price_cents": 2900,
+      "subscriber_discount_pct": 12,
+      "net_price_cents": 2552,
+      "active": true
+    }
+  ],
+  "subscriptions": []
+}
