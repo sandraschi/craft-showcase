@@ -878,11 +878,14 @@ impl eframe::App for ShowcaseApp {
             };
             let mut switch_to: Option<ActiveApp> = None;
             let mut run_tool: Option<&'static str> = None;
-            egui::Window::new(format!("{title} — {}", self.app.label()))
+            let mut win = egui::Window::new(format!("{title} — {}", self.app.label()))
                 .open(&mut open)
-                .default_width(480.0)
-                .resizable(true)
-                .show(&ctx, |ui| match dialog {
+                .default_width(600.0)
+                .resizable(true);
+            if matches!(dialog, HelpDialog::Docs) {
+                win = win.default_size([620.0, 420.0]);
+            }
+            win.show(&ctx, |ui| match dialog {
                     HelpDialog::Palette => {
                         ui.add(
                             egui::TextEdit::singleline(&mut self.palette_query)
@@ -994,31 +997,30 @@ impl eframe::App for ShowcaseApp {
                             ),
                         ];
 
-                        ui.horizontal(|ui| {
-                            ui.vertical(|ui| {
-                                ui.set_min_width(170.0);
-                                ui.strong("Documents");
-                                ui.separator();
-                                for (idx, (doc_title, _)) in docs.iter().enumerate() {
-                                    if ui.selectable_label(self.selected_doc == idx, *doc_title).clicked() {
-                                        self.selected_doc = idx;
-                                    }
+                        ui.horizontal_wrapped(|ui| {
+                            for (idx, (doc_title, _)) in docs.iter().enumerate() {
+                                if ui.selectable_label(self.selected_doc == idx, *doc_title).clicked() {
+                                    self.selected_doc = idx;
                                 }
-                                if let Some(url) = self.app.demo_url() {
-                                    ui.add_space(10.0);
-                                    if ui.button("Open Demo Webshop").clicked() {
-                                        ctx.open_url(egui::OpenUrl::new_tab(url));
-                                    }
+                            }
+                            if let Some(url) = self.app.demo_url() {
+                                if ui.button("Open Demo Webshop").clicked() {
+                                    ctx.open_url(egui::OpenUrl::new_tab(url));
                                 }
-                            });
-                            ui.separator();
-                            egui::ScrollArea::vertical().max_height(320.0).show(ui, |ui| {
-                                ui.set_min_width(340.0);
-                                if let Some((_, body)) = docs.get(self.selected_doc) {
-                                    ui.label(RichText::new(body).monospace().size(11.5));
-                                }
-                            });
+                            }
                         });
+                        ui.separator();
+                        egui::ScrollArea::vertical()
+                            .id_salt("wasm_doc_reader")
+                            .min_scrolled_height(280.0)
+                            .show(ui, |ui| {
+                                if let Some((_, body)) = docs.get(self.selected_doc) {
+                                    ui.add(
+                                        egui::Label::new(RichText::new(body).size(13.0))
+                                            .wrap(),
+                                    );
+                                }
+                            });
                     }
                     HelpDialog::Licenses => {
                         ui.strong("Dual-Licensed: MIT OR Apache-2.0");
