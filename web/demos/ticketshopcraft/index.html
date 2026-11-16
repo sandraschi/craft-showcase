@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NEUBAU BOX OFFICE — Events, Workshops &amp; Tickets</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">Local-First Box Office</span>
+        <h1 id="store-name">NEUBAU BOX OFFICE</h1>
+        <p id="store-tagline" class="tagline">Local-First Event Ticketing, Workshops &amp; Seat Reservations</p>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-val" id="stat-events">0</span>
+          <span class="stat-lbl">Events &amp; Tiers</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="stat-remaining">0</span>
+          <span class="stat-lbl">Seats Open</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="stat-orders">0</span>
+          <span class="stat-lbl">Tickets Issued</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container layout">
+    <section class="events-section">
+      <div class="section-head">
+        <h2>Upcoming Events &amp; Workshops</h2>
+      </div>
+      <div class="events-grid" id="events-grid"></div>
+    </section>
+
+    <aside class="sidebar">
+      <div class="card ticket-card">
+        <h2>Book Tickets</h2>
+        <form id="ticket-form">
+          <label>
+            <span>Event &amp; Tier</span>
+            <select id="code-select" name="code" required></select>
+          </label>
+          <label>
+            <span>Quantity</span>
+            <input type="number" id="quantity" name="quantity" min="1" max="20" value="2" required />
+          </label>
+          <label>
+            <span>Attendee Name</span>
+            <input type="text" id="attendee-name" name="attendee_name" placeholder="Mia Novak" required />
+          </label>
+          <label>
+            <span>Attendee Email</span>
+            <input type="email" id="attendee-email" name="attendee_email" placeholder="mia@example.com" required />
+          </label>
+          <div class="estimate">
+            <div><span>Seats</span><strong id="est-qty">2</strong></div>
+            <div><span>Total</span><strong id="est-total">€0.00</strong></div>
+          </div>
+          <button type="submit" class="btn-primary">Issue Ticket</button>
+          <p class="form-msg" id="form-msg" role="status"></p>
+        </form>
+      </div>
+
+      <div class="card orders-card">
+        <h2>Recent Tickets</h2>
+        <div class="orders-list" id="orders-list"></div>
+      </div>
+    </aside>
+  </main>
+
+  <footer class="footer container">
+    <span>Powered by <strong>TicketShopCraft</strong> (Pure Rust + SQLite + MCP)</span>
+    <span id="generated-at"></span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{
+  "store_name": "NEUBAU BOX OFFICE",
+  "tagline": "Local-First Event Ticketing, Workshops & Seat Reservations",
+  "currency": "EUR",
+  "generated_at": "2026-11-16T00:58:01.695280300+00:00",
+  "events": [
+    {
+      "id": 1,
+      "code": "EVT-RUST-WS",
+      "title": "Pure-Rust Systems Workshop",
+      "event_date": "2026-12-05 10:00",
+      "venue": "Neubau Makerspace, Vienna",
+      "tier_name": "Workshop Pass",
+      "price_cents": 8900,
+      "capacity": 24,
+      "sold_count": 0,
+      "active": true
+    },
+    {
+      "id": 2,
+      "code": "EVT-JAZZ-GA",
+      "title": "Winter Courtyard Jazz Quartet",
+      "event_date": "2026-12-11 20:00",
+      "venue": "Porgy & Bess Annex",
+      "tier_name": "General Admission",
+      "price_cents": 2800,
+      "capacity": 120,
+      "sold_count": 0,
+      "active": true
+    },
+    {
+      "id": 3,
+      "code": "EVT-JAZZ-VIP",
+      "title": "Winter Courtyard Jazz Quartet",
+      "event_date": "2026-12-11 20:00",
+      "venue": "Porgy & Bess Annex",
+      "tier_name": "Front Table + Vinyl",
+      "price_cents": 6500,
+      "capacity": 16,
+      "sold_count": 0,
+      "active": true
+    },
+    {
+      "id": 4,
+      "code": "EVT-CERAMIC",
+      "title": "Wheel-Throwing Pottery Evening",
+      "event_date": "2026-12-14 18:30",
+      "venue": "Studio Lehm, 1070",
+      "tier_name": "Studio Seat",
+      "price_cents": 5400,
+      "capacity": 12,
+      "sold_count": 0,
+      "active": true
+    },
+    {
+      "id": 5,
+      "code": "EVT-SYNTH",
+      "title": "Modular Synth Patching Lab",
+      "event_date": "2026-12-18 19:00",
+      "venue": "Klangwerk 4",
+      "tier_name": "Lab Bench",
+      "price_cents": 4200,
+      "capacity": 18,
+      "sold_count": 0,
+      "active": true
+    },
+    {
+      "id": 6,
+      "code": "EVT-ESPRESSO",
+      "title": "Single-Origin Espresso Cupping",
+      "event_date": "2026-12-20 11:00",
+      "venue": "Roesterei Nord",
+      "tier_name": "Tasting Flight",
+      "price_cents": 2400,
+      "capacity": 20,
+      "sold_count": 0,
+      "active": true
+    }
+  ],
+  "orders": []
+}
