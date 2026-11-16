@@ -20,10 +20,11 @@ enum ActiveApp {
     Asset,
     Form,
     Wiki,
+    Stock,
 }
 
 impl ActiveApp {
-    const ALL: [Self; 13] = [
+    const ALL: [Self; 14] = [
         Self::Helm,
         Self::Bill,
         Self::Buch,
@@ -37,6 +38,7 @@ impl ActiveApp {
         Self::Asset,
         Self::Form,
         Self::Wiki,
+        Self::Stock,
     ];
 
     fn label(self) -> &'static str {
@@ -54,6 +56,7 @@ impl ActiveApp {
             Self::Asset => "💻 AssetCraft",
             Self::Form => "📝 FormCraft",
             Self::Wiki => "📚 WikiCraft",
+            Self::Stock => "📦 StockCraft",
         }
     }
 
@@ -72,6 +75,7 @@ impl ActiveApp {
             Self::Asset => "§7 EStG AfA & Hardware Registry",
             Self::Form => "NPS Surveys & Detractor Routing",
             Self::Wiki => "FTS5 Docs, Backlinks & ADRs",
+            Self::Stock => "Inventory, Moving-Average Cost, Inventur & MHD",
         }
     }
 }
@@ -148,6 +152,16 @@ struct WikiDoc {
     body: String,
 }
 
+#[derive(Clone)]
+struct StockRow {
+    sku: String,
+    name: String,
+    location: String,
+    qty: i64,
+    min_stock: i64,
+    unit_cost_cents: i64,
+}
+
 pub struct ShowcaseApp {
     app: ActiveApp,
     dark_mode: bool,
@@ -162,6 +176,9 @@ pub struct ShowcaseApp {
     cash_millions: f64,
     runway_months: f64,
     briefing_generated: bool,
+
+    // Stock
+    stock_items: Vec<StockRow>,
 
     // Bill
     invoices: Vec<Invoice>,
@@ -231,6 +248,12 @@ impl Default for ShowcaseApp {
             cash_millions: 1.42,
             runway_months: 20.8,
             briefing_generated: false,
+            stock_items: vec![
+                StockRow { sku: "NVME-2TB-PRO".into(), name: "NVMe PCIe 4.0 2TB SSD".into(), location: "A-01-02".into(), qty: 5, min_stock: 6, unit_cost_cents: 13_900 },
+                StockRow { sku: "RAM-DDR5-32".into(), name: "DDR5-5600 32GB ECC".into(), location: "A-01-03".into(), qty: 14, min_stock: 8, unit_cost_cents: 9_800 },
+                StockRow { sku: "CAT6A-3M".into(), name: "Cat6A Patch Cable 3m".into(), location: "C-01-04".into(), qty: 18, min_stock: 20, unit_cost_cents: 650 },
+                StockRow { sku: "PASTE-01".into(), name: "Solder Paste (MHD 2026-11)".into(), location: "C-02-01".into(), qty: 9, min_stock: 4, unit_cost_cents: 2_000 },
+            ],
             invoices: vec![
                 Invoice { id: "INV-2026-001".into(), customer: "Alpine Tech GmbH".into(), amount_cents: 14_400_00, status: "Paid".into(), date: "2026-11-01".into() },
                 Invoice { id: "INV-2026-002".into(), customer: "Wiener Software AG".into(), amount_cents: 8_500_00, status: "Issued".into(), date: "2026-11-04".into() },
@@ -440,6 +463,7 @@ impl eframe::App for ShowcaseApp {
                     ActiveApp::Asset => self.render_asset(ui),
                     ActiveApp::Form => self.render_form(ui),
                     ActiveApp::Wiki => self.render_wiki(ui),
+                    ActiveApp::Stock => self.render_stock(ui),
                 }
             });
         });
@@ -803,6 +827,44 @@ impl ShowcaseApp {
             ui.group(|ui| {
                 ui.strong(&doc.title);
                 ui.label(&doc.body);
+            });
+        }
+    }
+
+    fn render_stock(&mut self, ui: &mut egui::Ui) {
+        ui.heading("StockCraft — Local-First Inventory & Warehouse (Lagerhaltung)");
+        ui.separator();
+        let total_cents: i64 = self.stock_items.iter().map(|s| s.qty * s.unit_cost_cents).sum();
+        let low_count = self.stock_items.iter().filter(|s| s.qty <= s.min_stock).count();
+        ui.horizontal(|ui| {
+            ui.label(format!("SKUs: {}  •  Valuation: €{:.2}  •  Low stock: {}", self.stock_items.len(), total_cents as f64 / 100.0, low_count));
+            if ui.button("Drain Bus (billcraft / modcraft)").clicked() {
+                self.bus_log.push("stockcraft <- invoice.issued (pick list created)".into());
+                self.toast = Some("Drained 1 pending pick list from bus".into());
+            }
+        });
+        ui.add_space(8.0);
+        for row in &mut self.stock_items {
+            ui.group(|ui| {
+                ui.horizontal(|ui| {
+                    ui.strong(&row.sku);
+                    ui.label(&row.name);
+                    ui.label(format!("Bin {}", row.location));
+                    let qty_col = if row.qty <= row.min_stock { Color32::from_rgb(251, 191, 36) } else { Color32::from_rgb(52, 211, 153) };
+                    ui.colored_label(qty_col, format!("Qty: {} (min {})", row.qty, row.min_stock));
+                    ui.label(format!("€{:.2}/ea", row.unit_cost_cents as f64 / 100.0));
+                    if ui.small_button("+1 Receive").clicked() {
+                        row.qty += 1;
+                        self.bus_log.push(format!("stockcraft -> goods.received ({} +1)", row.sku));
+                    }
+                    if ui.small_button("-1 Issue").clicked() && row.qty > 0 {
+                        row.qty -= 1;
+                        self.bus_log.push(format!("stockcraft -> stock.cogs_booked ({} -> buchcraft)", row.sku));
+                        if row.qty <= row.min_stock {
+                            self.bus_log.push(format!("stockcraft -> stock.low ({} -> taskcraft)", row.sku));
+                        }
+                    }
+                });
             });
         }
     }

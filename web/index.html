@@ -514,6 +514,22 @@
             Inbox: <span class="text-slate-200">asset.depreciation_due • Bank CSV</span>
           </div>
         </div>
+
+        <!-- StockCraft -->
+        <div class="glass-panel p-6 rounded-2xl hover:border-brand-400/50 transition-all group">
+          <div class="flex items-center justify-between mb-3">
+            <span class="text-2xl">📦</span>
+            <span class="text-xs font-bold font-mono text-teal-400 bg-teal-400/10 px-2.5 py-1 rounded">EKR 1600 • MHD</span>
+          </div>
+          <h3 class="text-xl font-bold text-white group-hover:text-brand-400 transition-colors">StockCraft</h3>
+          <p class="text-xs text-brand-400 font-mono mb-2">Replaces Sortly, Katana, inFlow &amp; Cin7</p>
+          <p class="text-sm text-slate-300 leading-relaxed mb-4">
+            Local-first inventory &amp; warehouse management (Lagerhaltung) with moving-average valuation in integer cents, immutable Storno movements, Inventur, FEFO Lots/MHD, Niederstwertprinzip write-downs, and USB-HID barcode scanning.
+          </p>
+          <div class="text-xs font-mono text-slate-400 border-t border-white/10 pt-3">
+            Bus: <span class="text-slate-200">invoice.issued • bom.exported → stock.cogs_booked</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -735,7 +751,8 @@
       { domain: "IT Asset Inventory & AfA", saas: "Snipe-IT / Oomnitza", price: 180, craft: "AssetCraft", austrian: "§7 EStG AfA & QR Generator" },
       { domain: "Surveys & NPS Feedback", saas: "Typeform / Delighted", price: 300, craft: "FormCraft", austrian: "Detractor Event Routing" },
       { domain: "Documentation & ADRs", saas: "Notion Plus / Confluence", price: 240, craft: "WikiCraft", austrian: "FTS5 Search & Backlinks" },
-      { domain: "Austrian Bookkeeping", saas: "BMD NTCS / sevDesk / DATEV", price: 480, craft: "BuchCraft", austrian: "EKR, Storno & U30 Kennzahlen" }
+      { domain: "Austrian Bookkeeping", saas: "BMD NTCS / sevDesk / DATEV", price: 480, craft: "BuchCraft", austrian: "EKR, Storno & U30 Kennzahlen" },
+      { domain: "Inventory & Warehouse", saas: "Sortly / Katana / inFlow", price: 360, craft: "StockCraft", austrian: "EKR 1600, Inventur, MHD & Storno" }
     ];
 
     function updateROI(seats) {
