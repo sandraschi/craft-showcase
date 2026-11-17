@@ -1,0 +1,3 @@
+[build]
+# HTML is served at /wasm/index.html. Relative URLs resolve next to that file.
+public_url = "./"
