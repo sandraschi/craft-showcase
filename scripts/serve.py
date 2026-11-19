@@ -7,9 +7,25 @@ import re
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 
 
+_WASM_BUNDLE = re.compile(r"craft-showcase-wasm-[0-9a-fA-F]+(?:_bg)?\.(?:js|wasm)$")
+
+
 class QuietRangeHandler(SimpleHTTPRequestHandler):
     def log_message(self, format: str, *args: object) -> None:
         pass
+
+    def translate_path(self, path: str) -> str:
+        """Serve Trunk bundles from wasm/ when a page still requests them at /."""
+        translated = super().translate_path(path)
+        if os.path.isfile(translated):
+            return translated
+        raw = path.split("?", 1)[0].split("#", 1)[0]
+        name = os.path.basename(raw)
+        if _WASM_BUNDLE.fullmatch(name):
+            candidate = os.path.join(self.directory, "wasm", name)
+            if os.path.isfile(candidate):
+                return candidate
+        return translated
 
     def handle_one_request(self) -> None:
         try:
