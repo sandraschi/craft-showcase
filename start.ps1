@@ -26,20 +26,51 @@ if ($Smoke -or ($args -contains "--smoke")) {
     $appHtml = Join-Path $RepoRoot "web\app.html"
     $diyData = Join-Path $RepoRoot "web\data\diy-apps.json"
     $allData = Join-Path $RepoRoot "web\data\all-apps.json"
-    if ((Test-Path $wasmHtml) -and (Test-Path $landingHtml) -and (Test-Path $diyHtml) -and (Test-Path $localHtml) -and (Test-Path $appHtml) -and (Test-Path $diyData) -and (Test-Path $allData)) {
-        Write-Host "smoke: ok (craft-showcase web, diy & wasm)" -ForegroundColor Green
-        exit 0
-    } else {
+    if (-not ((Test-Path $wasmHtml) -and (Test-Path $landingHtml) -and (Test-Path $diyHtml) -and (Test-Path $localHtml) -and (Test-Path $appHtml) -and (Test-Path $diyData) -and (Test-Path $allData))) {
         Write-Host "smoke: failed - missing web assets" -ForegroundColor Red
         exit 1
     }
+    $wasmDir = Split-Path $wasmHtml
+    $wasmHtmlText = [System.IO.File]::ReadAllText($wasmHtml)
+    if ($wasmHtmlText.Contains("'/craft-showcase-wasm-") -or $wasmHtmlText.Contains('"/craft-showcase-wasm-')) {
+        Write-Host "smoke: failed - wasm bundles are requested from the site root" -ForegroundColor Red
+        exit 1
+    }
+    $assetPattern = '[''"](?:\./|/wasm/)(craft-showcase-wasm-[^''"]+\.(?:js|wasm))[''"]'
+    $assetMatches = [regex]::Matches($wasmHtmlText, $assetPattern)
+    if ($assetMatches.Count -lt 2) {
+        Write-Host "smoke: failed - wasm index.html does not reference the js and wasm bundles" -ForegroundColor Red
+        exit 1
+    }
+    $seen = @{}
+    foreach ($assetMatch in $assetMatches) {
+        $assetName = $assetMatch.Groups[1].Value
+        if ($seen.ContainsKey($assetName)) { continue }
+        $seen[$assetName] = $true
+        $assetPath = Join-Path $wasmDir $assetName
+        if (-not (Test-Path -LiteralPath $assetPath)) {
+            Write-Host "smoke: failed - missing $assetPath" -ForegroundColor Red
+            exit 1
+        }
+    }
+    Write-Host "smoke: ok (craft-showcase web, diy & wasm)" -ForegroundColor Green
+    exit 0
 }
 
 if ($Build) {
     Set-Location (Join-Path $RepoRoot "crates\craft-showcase-wasm")
     & "$env:USERPROFILE\.cargo\bin\trunk.exe" build --release --public-url ./
     if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-    Copy-Item -Path "dist\*" -Destination (Join-Path $RepoRoot "web\wasm") -Recurse -Force
+    $wasmOut = Join-Path $RepoRoot "web\wasm"
+    Copy-Item -Path "dist\*" -Destination $wasmOut -Recurse -Force
+    $wasmHtmlOut = Join-Path $wasmOut "index.html"
+    $utf8 = New-Object System.Text.UTF8Encoding $false
+    $builtHtml = [System.IO.File]::ReadAllText($wasmHtmlOut)
+    $builtHtml = $builtHtml.Replace("'/craft-showcase-wasm-", "'./craft-showcase-wasm-")
+    $builtHtml = $builtHtml.Replace('"/craft-showcase-wasm-', '"./craft-showcase-wasm-')
+    $builtHtml = $builtHtml.Replace("'././craft-showcase-wasm-", "'./craft-showcase-wasm-")
+    $builtHtml = $builtHtml.Replace('"././craft-showcase-wasm-', '"./craft-showcase-wasm-')
+    [System.IO.File]::WriteAllText($wasmHtmlOut, $builtHtml, $utf8)
     Write-Host "Build complete: WASM copied to web\wasm" -ForegroundColor Green
     exit 0
 }
